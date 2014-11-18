@@ -1,0 +1,15 @@
+title: Generic application framework
+description: The Eqela application framework provides functionality for all usual programming needs: Data types, structures, threading, file access, networking, etc. Please browse below for more information on specific topics:
+reference: generic-object-type
+reference: primitive-classes
+reference: memory-allocation
+reference: data-structures
+reference: string-operations
+reference: mathematics
+reference: logging
+reference: system-environment
+reference: date-and-time
+reference: executing-other-programs
+reference: multithreading
+reference: background-tasks
+reference: timers

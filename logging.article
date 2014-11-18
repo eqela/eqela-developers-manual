@@ -1,0 +1,35 @@
+= Logging and debugging =
+
+The "eq.api.Log" class provides a generic logging, debugging and message output facility for Eqela applications. In environments where there is a terminal, this means outputting messages to the terminal / standard output. For other environments, a "most suitable" approach is always sought: For example, in a JavaScript/HTML5 environment, the messages are printed to the debug log of the web browser console. In some environments, the messages may be printed to a debug file that can be read afterwards. Regardless of the exact backend, the Log facility can be used simply as follows:
+
+--- code ---
+// Print messages in different logging levels
+Log.message("This is a standard message");
+Log.warning("This is a warning message");
+Log.error("This is an error message");
+Log.debug("This is a debug message");
+--- code ---
+
+By default, messages, warnings and errors are always processed and printed, while debug messages would usually be disabled by default, and would only be seen if debugging is enabled (the precise method of enabling debugging would be somewhat platform dependent, but where environment variables are supported, usually setting the environment variable EQ_DEBUG to "yes" would enable debugging).
+
+The "eq.api.LoggerObject" class provides a facility that a new class can inherit, where one can do logging via class methods. The LoggerObject can also be configured with a custom logger object (of type "eq.api.Logger") that can be used to customize the destination or format of the log output:
+
+--- code ---
+class MyClass : LoggerObject
+{
+    public void mymethod() {
+        // Note the use of "log_debug" instead of "Log.debug"
+        log_debug("mymethod was called");
+    }
+}
+
+class OtherClass
+{
+    public void mymethod() {
+        var mc = new MyClass();
+        // set a custom instance of the logger for the other class to use
+        mc.set_logger(new MyLoggerClass());
+        mc.mymethod();
+    }
+}
+--- code ---

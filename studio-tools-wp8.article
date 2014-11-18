@@ -1,0 +1,10 @@
+= Installing the Windows Phone 8 compiler and development tools =
+
+Eqela Studio uses the standard Windows Phone 8 SDK for the final compilation of the
+Windows Phone 8 app. You can download and install the latest Windows Phone 8 SDK
+from the Windows Phone developer website:
+
+@link http://dev.windowsphone.com/en-us/downloadsdk "Download the Windows Phone 8 SDK"
+
+Install all components to their default / standard locations. After installation,
+Eqela Studio should automatically discover the tools and use them appropriately.

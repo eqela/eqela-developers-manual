@@ -1,0 +1,28 @@
+= The generic object type =
+
+The "eq.api.Object" class is used as the base class for all objects that are not specifically declared as "fundamental" (Object itself is fundamental); if no specific base class is specified for a non-fundamental class, then Object is automatically assumed as the base class. Thus, the following class declarations are all equivalent:
+
+--- code ---
+class MyClass {
+}
+class MyClass : Object {
+}
+class MyClass : eq.api.Object {
+}
+--- code ---
+
+Because of this, the Object class also serves as a generic type, and can be used as a type where the exact type is known. Thus, consider the following code:
+
+--- code ---
+public void process_object(Object o) {
+    if(o is String) {
+        ; // Do string actions
+    }
+    if(o is Buffer) {
+        ; // Do buffer actions
+    }
+    // etc.
+}
+--- code ---
+
+Object itself has no methods or member variables, and is therefore very lightweight.

@@ -1,0 +1,352 @@
+= Object oriented programming =
+
+== Class declarations ==
+
+Eqela is a fully object oriented class-based language. The syntax for declaring a class in Eqela works as follows:
+
+--- code ---
+[modifiers] class [classname] : [basetypes]
+{
+    [implementation]
+}
+--- code ---
+
+An example declaration following this pattern could be as follows:
+
+--- code ---
+public class MySampleClass : SuperClass
+{
+    public void do_something() {
+        // more code here
+    }
+}
+--- code ---
+
+Eqela does not allow multiple inheritance (thus, one class can have at most one base class), but classes can implement multiple interfaces. The base class and interfaces may be mixed in the [basetypes] section of the class declaration in any order.
+
+The following common modifiers are supported for all classes:
+
+* **public** - The class will be exported in the module's API
+
+* **private** - The class is only available for use internally within the module
+
+* **fundamental** - The class will not have any base class
+
+If not otherwise specified, all classes are by default "private".
+
+== Automatic base classing ==
+
+When building an application using the Eqela API, all classes will automatically be declared as inheriting from Eqela API class "Object" if no other base class was specified. Thus, the following two would be equivalent:
+
+--- code ---
+class MyClass {
+}
+class MyClass : Object {
+}
+--- code ---
+
+To specifically declare a class as having no base class, use the "fundamental" modifier:
+
+--- code ---
+fundamental class MyClass {
+}
+--- code ---
+
+== Class constructors ==
+
+Class constructors are declared as follows:
+
+--- code ---
+public MyClass
+{
+    public MyClass() {
+        ; // implementation
+    }
+}
+--- code ---
+
+The name of the constructor method must exactly match the name of the class.
+
+Note that in an Eqela class, it is only permissible to declare one constructor, and the constructor is not allowed to have any parameters. For supplying parameters upon object construction, there are several ways:
+
+1. Use an appropriate static method:
+
+--- code ---
+public MyClass
+{
+    private int variable = 0;
+
+    public MyClass() {
+    }
+
+    public static MyClass create(int value) {
+        var v = new MyClass();
+        v.variable = value;
+        return(v);
+    }
+}
+--- code ---
+
+To construct an object like this, simply call the static method:
+
+--- code ---
+var o = MyClass.create(10);
+--- code ---
+
+2. Use properties (see more on properties below):
+
+--- code ---
+public MyClass
+{
+    property int variable = 0;
+
+    public MyClass() {
+    }
+}
+--- code ---
+
+To construct this, you could do as follows:
+
+--- code ---
+var o = new MyClass().set_variable(10);
+--- code ---
+
+== Class destructors ==
+
+Eqela supports class destructors using the following syntax:
+
+--- code ---
+public MyClass
+{
+    ~Myclass() {
+        ; // actions here
+    }
+}
+--- code ---
+
+As is usual also in other modern languages with automatic memory management, it is also highly discouraged to implement destructors in Eqela applications. Generally the only well-known acceptable use for a destructor is to deallocate resources allocated manually, eg. through malloc() in a C-based application, or other such resources that require manual release or unallocation. Some language backends (such as JavaScript) do not support destructors at all; thus, using destructors in general-purpose code is absolutely not a good idea.
+
+== Member variables ==
+
+Member variables for a class can be declared as follows:
+
+--- code ---
+class MyClass
+{
+    [modifiers] [type] [variablename] = [initializer];
+}
+--- code ---
+
+Modifiers can be a combination of "private" or "public", and "static"; the type can be any valid data type. Note that the initializer may only be a literal data value; it cannot contain method calls or access to other member variables. If no access modifier (public or private) is specified, "private" is assumed by default.
+
+The following are valid member variable declarations:
+
+--- code ---
+class MyClass
+{
+    int number = 10;
+    public static MyClass second;
+    private MyClass third = null;
+}
+--- code ---
+
+== Properties ==
+
+Eqela offers a special "shortcut" feature to easily declare "properties" in classes using the following syntax:
+
+--- code ---
+class MyClass
+{
+    property int myproperty;
+}
+--- code ---
+
+The above code is equivalent to the code below:
+
+--- code ---
+class MyClass
+{
+    int myproperty;
+
+    public MyClass set_myproperty(int v) {
+        myproperty = v;
+        return(this);
+    }
+
+    public int get_myproperty() {
+        return(myproperty);
+    }
+}
+--- code ---
+
+Properties are by default public, but can accept the same modifiers as regular member variables.
+
+== Methods ==
+
+Methods are declared as follows:
+
+--- code ---
+class MyClass
+{
+    [modifiers] [type] [methodname]([type] [parameter],[type] [parameter],..) {
+        // method body
+    }
+}
+--- code ---
+
+Modifiers can be a combination of "private", "public", "static", "virtual", "override" and "abstract". The type can be any valid data type, including the special type "void", which would indicate that the method does not return any value. If no access modifier "private" or "public" is given, "private" is always assumed by default.
+
+Please see below for some additional examples of method definitions.
+
+== Virtual methods and overriding of methods ==
+
+If a method is declared with the modifier "virtual", it becomes a virtual function. This implements polymorphism in the class hierarchy, and allows the method to be overridden with a different implementation in a subclass. To override a method in a subclass, it should be declared using the "override" modifier, as follows:
+
+--- code ---
+class BaseClass
+{
+    public virtual void hello() {
+        Log.message("hello 1");
+    }
+}
+
+class DerivedClass : BaseClass
+{
+    public override void hello() {
+        Log.message("Hello enhanced!");
+    }
+}
+--- code ---
+
+Note that the use of the override modifier is optional, and no difference in functionality is experienced if the modifier is omitted. However, use of the modifier is encouraged, as it will allow the compiler to also ensure that a corresponding virtual method is indeed present, thus performing additional verification for the developer, ensuring application consistency and expected functionality.
+
+== Abstract methods ==
+
+Abstract methods are methods that have a method signature, but no implementation. These are declared by using the modifier "abstract" when declaring the function. However, if no "abstract" modifier is present, but method body is missing (instead of curly braces, a semicolon occurs), the "abstract" keyword is automatically assumed, and the method treated as abstract. Interfaces may consist of only abstract methods. No "override" keyword is required to override abstract methods. The following provides some valid abstract method definitions:
+
+--- code ---
+interface MyInterface {
+      public void first_method();
+      public abstract void second_method();
+}
+--- code ---
+
+== Static methods ==
+
+Static methods are to be primarily called by the name of the class they are associated with; not through an object instance. Therefore, see the following:
+
+--- code ---
+class MyClass {
+    public static void hello() {
+        Log.message("MyClass hello");
+    }
+}
+
+class SecondClass {
+    public void method() {
+        var mc = new MyClass();
+        mc.hello(); // not right
+        MyClass.hello(); // the correct way
+    }
+}
+--- code ---
+
+== Method hiding ==
+
+Eqela does not allow method hiding. Therefore, if a method is declared in a base class, and it is not virtual, no method of the same name may be declared in any of the subclasses, even if the parameters would differ.
+
+== Default parameter values in method declarations ==
+
+Eqela does not support method overloading (defining several methods with the same name but with different parameters). However, Eqela does support supplying default values to method parameters where the caller does not supply any. Thus, one can define a method as follows (supplying a default value of "0" for the parameter "n"):
+
+--- code ---
+public void my_method(int n = 0);
+--- code ---
+
+This method could be called through one of the following ways:
+
+--- code ---
+obj.my_method(10);
+obj.my_method();
+--- code ---
+
+In the latter case, since no parameter value was given, the default value of "0" (as defined in the method definition) will be used.
+
+== Interface declarations ==
+
+An interface represents a description of method signatures, but without their corresponding method bodies. In other words, interfaces are collections of abstract methods. A class is not said to "derive" from an interface, but a class is said to "implement" an interface (although in terms of Eqela syntax in class declarations, there is no difference in deriving from a class and implementing an interface). Any class may implement any number of interfaces.
+
+An interface definition can be done as follows:
+
+--- code ---
+interface MyInterface
+{
+    public void method1();
+    public int method2();
+}
+--- code ---
+
+A corresponding class that implements the interface can be declared thus:
+
+--- code ---
+class MyClass : MyInterface
+{
+    public void method1() {
+        // implementation
+    }
+
+    public int method2() {
+        // implementation
+        return(0);
+    }
+}
+--- code ---
+
+This code may then be used from the outside as follows:
+
+--- code ---
+class AnotherClass
+{
+    public void method() {
+        MyInterface object = new MyClass();
+        object.method1();
+        int n = object.method2();
+    }
+}
+--- code ---
+
+== Prerequisites ==
+
+An interface may not "inherit" another interface, but it may instead have "prerequisites", through which roughly the same functionality is achieved. Thus, the following code is legal:
+
+--- code ---
+interface First
+{
+    public void method1();
+}
+
+interface Second : First
+{
+    public void method2();
+}
+
+class MyClass : Second, First
+{
+    public void method1() {
+    }
+    public void method2() {
+    }
+}
+--- code ---
+
+The following code would result in a compilation error due to the "First" interface not being implemented despite it being a prerequisite of "Second":
+
+--- code ---
+class MyClass : Second
+{
+    public void method1() {
+    }
+    public void method2() {
+    }
+}
+--- code ---

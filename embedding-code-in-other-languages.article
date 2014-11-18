@@ -1,0 +1,45 @@
+= Embedding code in other programming languages =
+
+== General functionality ==
+
+One of the very unique features of Eqela is its ability to embed several programming languages in one source code file. This can be accomplished through the "embed" statement, and allows adding any language into a block within Eqela code. The syntax is as follows:
+
+--- code ---
+embed [language name] {{{
+      (code in other language
+}}}
+--- code ---
+
+Note that the triple curly braces are significant (the syntax expects to have three opening braces, together with matching triple closing braces).
+
+For example, consider the following "Hello world" application written completely by embedding other languages:
+
+--- code ---
+class Main
+{
+    embed "c" {{{
+        #include <stdio.h>
+    }}}
+    public static void print() {
+        embed "c" {{{
+            printf("Hello world\n");
+        }}}
+        embed "java" {{{
+            System.out.println("Hello world");
+        }}}
+    }
+    embed "c" {{{
+        int main(int c, char** v) {
+            hello_Main_print();
+            return(0);
+        }
+    }}}
+    embed "java" {{{
+        public static void main(String[] args) {
+            hello_Main_print();
+        }
+    }}}
+}
+--- code ---
+
+In the above example, two foreign languages (C and Java) are embedded within the Eqela source code. If this source code is compiled to C, then the Java code is omitted, but the C code is included; and vice-versa, if compiled to Java. If the language name is omitted in the "embed" statement, the code block is always included, and no target language check is done (in these cases, the target language could be determined via appropriate IFDEF statements, however, if so desired).

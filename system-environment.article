@@ -1,0 +1,29 @@
+= System environment =
+
+Environment variables are a special facility supported on many platforms to relay variables from a parent process to a child process. Eqela does not supply any environment variable implementation of its own, but it does provide access to the native environment variables on those platforms that support it (which includes at least computer platforms such as Posix-based platforms, including Linux and OS X and Microsoft Windows). Practically the access is provided through the "com.eqela.libos.SystemEnvironment" facility, wherein one can use the get_env_vars(), get_env_var() and set_env_var() methods to interact with environment variables. Consider the following example code:
+
+--- code ---
+SystemEnvironment.set_env_var("EQ_DEBUG", "yes");
+var val = SystemEnvironment.get_env_var("EQ_DEBUG");
+if(val != null && val.equals("yes")) {
+    Log.message("it worked");
+}
+--- code ---
+
+The SystemEnvironment class can also provide other information about the current system environment. Consider the following sample program:
+
+--- code ---
+// Other things that SystemEnvironment can provide
+class SystemEnvironmentLogger
+{
+    public static void output_info() {
+        Log.message("Current directory: %s".printf().add(SystemEnvironment.get_current_dir()));
+        Log.message("Path of the current application executable: %s".printf().add(SystemEnvironment.find_self()));
+        Log.message("System temporary directory: %s".printf().add(SystemEnvironment.get_temporary_dir()));
+        Log.message("Photo directory: %s".printf().add(SystemEnvironment.get_photo_dir()));
+        Log.message("Document directory: %s".printf().add(SystemEnvironment.get_documents_dir()));
+        Log.message("Music directory: %s".printf().add(SystemEnvironment.get_music_dir()));
+        Log.message("Home directory: %s".printf().add(SystemEnvironment.get_home_dir()));
+    }
+}
+--- code ---

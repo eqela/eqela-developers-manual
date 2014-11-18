@@ -1,0 +1,70 @@
+= Type casting =
+
+== Static type casting ==
+
+One data type can be cast into another in a fairly liberal manner by using the "(typename)" notation. The programmer is responsible for ensuring that the cast makes sense, and no checking is done by Eqela on whether or not the cast will result in a crash or a runtime exception (and if you do make illegal casts, do expect your program to crash). That having said, static casts are very fast, and can be done as follows:
+
+--- code ---
+/* declares a floating pointer variable "n" and assigns a value to it */
+double n = 100.43;
+
+/* converts the floating pointer value to an integer by stripping out the decimals. value of "ni" will be 100 */
+int ni = (int)n;
+
+/* instantiates a new object of type "MyClass" and points the variable "x" to the newly created object */
+var x = new MyClass();
+
+/* Declares a new variable "y" of type "MyOtherClass" and points that variable to the object created on the previous line */
+var y = (MyOtherClass)x;
+
+/* NOTE: At this point, "y" is only usable if "MyOtherClass" is really a superclass or interface of "MyClass". Otherwise, unspecified behaviour (likely a crash) is to be expected. */
+--- code ---
+
+== Dynamic type casting ==
+
+Dynamic type casting using the "as" operator is a "safer" way of casting one data type to another. While this can only be done with object types, the resulting cast will result in a null pointer if the type casting cannot be done (the object being casted is truly not of the desired type). Thus, consider the following:
+
+--- code ---
+var x = new MyClass();
+var y = x as MyOtherClass; // will be null if not a subclass of MyOtherClass
+--- code ---
+
+In comparison, this is slightly slower than static type casting, due to the extra checking involved, but a much safer way, and thus the recommended thing to do when casting types. Do note that the return value might be null, and make sure to take that into account in your calling code.
+
+== Common problem: How to correctly use type casting? ==
+
+Static type casting is in many cases the wrong thing to do: It can be used to cast any type to any other type in order to satisfy the compiler's type checking routines, but very often doing this carelessly leads to runtime errors. It is usually better (and safer) to perform dynamic type casting, and to check the return values appropriately.
+
+When using dynamic type casting, do remember that the cast MIGHT RETURN NULL! Therefore, always check the result for nullness. Anyway, that is the whole point of using dynamic type casting in the first place. Consider the following:
+
+--- code ---
+class ClassA {
+    public void amethod() {
+    }
+}
+
+class ClassB : ClassA {
+    public void bmethod() {
+    }
+}
+
+var aa = new ClassA(); // OK
+var ab = (ClassB)aa; // compiles fine but may crash the program: ClassA is NOT derived from ClassB
+var ac = aa as ClassB; // works fine, but ac is assigned a null value
+
+var ba = new ClassB(); // OK
+var bb = (ClassA)ba; // works well. bb is a valid pointer to the class
+var bc = ba as ClassA; // same result as the previous line
+
+// DO NOT DO THIS:
+// The result of the "as" operation below may well be null: If so, the method call WILL crash the program.
+var xx = get_some_object();
+(xx as ClassB).bmethod();
+
+// Rather, do this:
+var xx = get_some_object();
+var xxb = xx as ClassB;
+if(xxb != null) {
+    xxb.bmethod();
+}
+--- code ---

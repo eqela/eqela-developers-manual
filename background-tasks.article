@@ -1,0 +1,49 @@
+= Background tasks =
+
+== Generic functionality ==
+
+The background task execution API enables a high level API for concurrent execution of code (as compared to the "low level" threading API) for simpler implementation of multithreaded applications. Note that an instance of a background task manager is required for execution, which is dependent on the current application environment (see more below):
+
+--- code ---
+public class MyTask : RunnableTask
+{
+    // This method runs in a secondary thread. Communication with the main
+    // thread should not be done via shared variables but through the use of
+    // the EventReceiver object "listener" supplied as parametere here.
+    public void run(EventReceiver listener, BooleanValue abortflag) {
+        int n;
+        for(n=0; n<20; n++) {
+            if(abortflag.to_boolean()) {
+                break;
+            }
+            listener.on_event("Message from the second thread: %d".printf().add(n));
+        }
+    }
+}
+
+public class MainProgram : EventReceiver
+{
+    public void execute(BackgroundTaskManager btm) {
+        var bt = btm.start_task(new MyTask(), this);
+        if(bt != null) {
+            // Calling bt.abort() would set the abortflag in the
+            // task's run() method to true, and would cause it to
+            // exit prematurely
+        }
+    }
+
+    public void on_event(Object o) {
+        Log.message("Received a message from the task: `%s'".printf().add(o));
+    }
+}
+--- code ---
+
+== Background tasks in GUI applications ==
+
+In Eqela GUI applications, a background task manager is provided as an integral part of the implementation of the GUI environment (the GUI engine in com.eqela.libgui.GUI provides one, and each user interface "widget" also IS one). For more information about GUI usage, please refer to the Eqela GUI API documentation below.
+
+### FIXME: @reference gui
+
+== Background tasks in non-GUI applications (server / command line) ==
+
+In non-GUI applications, an application can use the com.eqela.libeventloop.EventLoop class to request for an event loop that asks as a background task manager. Please refer to the documentation on event loops for further information.

@@ -1,0 +1,17 @@
+= Eqela Studio Licensing =
+
+Eqela Studio is available to download from the Eqela website without any cost to the user. Once downloaded, you
+can start Eqela development right away, targetting the system / computer you are using (eg. If you are using
+Windows, you can compile for Windows, or if you are using Mac OS X, then you can compile for Mac OS X).
+To unlock the full potential of Eqela and to compile for all the supported platforms, you will need to acquire
+a license.
+
+Licenses are issued on a per-user / per-year basis. To obtain a license, you can perform a purchase online through
+the Eqela website by clicking the link below:
+
+@link http://www.eqela.com/buy "Purchase an Eqela License"
+
+Once a license is purchased, you will receive a "License ID", which will then need to be associated with your
+account (adopted) and activated on the computer where you intend to do your development.
+
+@reference studio-activating-license

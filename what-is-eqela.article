@@ -1,0 +1,23 @@
+= What is Eqela? =
+
+As a general technology, Eqela enables the creation of software applications for a variety of requirements. As such, it is fundamentally based on compiler technology that converts Eqela programs to different programming languages; in practice, it is composed of many things, briefly outlined below.
+
+== The Eqela programming language ==
+
+The Eqela programming language is powerful, object oriented, strongly typed, easy to use, and efficient to program. The language is specifically designed to fit the needs of the different software platforms currently used in the industry so that a developer would never need to develop a program twice, even when targeting multiple platforms. As part of the C syntax family of programming languages and with a strong resemblance to popular languages like Java and C#, anyone with previous exposure to C, C++, Java, C#, Javascript, or other similar languages, will find themselves in a familiar environment.
+
+== A programming language translator ==
+
+The Eqela compiler is where the magic happens: It translates the Eqela source code to some other programming language. For the web, the code turns fully into Javascript; for Java based platforms, it becomes Java code; or it can turn into C code, even with embedded assembly code, if necessary. No cheating, no virtual machines, no interpreters.
+
+== A cross-platform development API / framework ==
+
+The Eqela API / class library is automatically works in many environments across different programming languages and operating systems. Whether the target application platform is based on C, Java, Javascript, or any other Eqela-compatible platform, regardless of the operating system, the same API and the same application code can be used to develop software. Yet the program still runs in the native code environment due to the source code conversion.
+
+== A cross-platform user interface development toolkit ==
+
+A user interface development framework, along with a set of ready-made user interface components and controls are also made available through the Eqela GUI API library. The same controls can be used, and the same user interface can work and look the same across all platforms, on mobile devices as well as on the desktop and on the web. Naturally, one can also develop their own controls and extend the existing ones further.
+
+== Development tools ==
+
+In practice, Eqela also represents a set of development tools that one can download, install, configure and use in order to develop and deploy applications. Eqela includes a cross platform graphical development environment (IDE) as well as command line tools, which can be mixed and matched depending on the requirements.

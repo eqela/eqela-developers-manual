@@ -1,0 +1,63 @@
+= Installing the Java Development Kit (JDK) =
+
+The JDK (Java Development Kit) is used to target several platforms that are dependent on
+the use of the Java programming language. Specifically this means at least Android, J2ME
+and Blackberry Java platforms. The JDK cannot be automatically downloaded or installed by
+Eqela Studio, since it is proprietary software that can only be downloaded through the
+Oracle website. Furthermore, the installation process for each development platform varies
+slightly. Please see below for instructions specific to your development operating system:
+
+== Installing on Windows ==
+
+First, download the latest version of JDK (NOT JRE) from Oracle's website:
+
+@link http://www.oracle.com/technetwork/java/javase/downloads/index.html "Java SE Downloads"
+
+Choose the version that is appropriate for your system: The "Windows x86" for 32bit computers,
+or "Windows x64" for 64bit systems. If in doubt, the 32bit version should work on either. As
+per Oracle's recommendations, do NOT install two versions of Java (either JRE and/or JDK) on
+one system at the same time. Prior to downloading and installing a JDK from here, make sure to
+first uninstall any existing JRE or JDK. This will prevent any confusion on which version of
+Java would be used on the system.
+
+Then, when you install the downloaded JDK, it is best to let it be installed to the standard
+location (the default suggested by the installer). This way, Eqela Studio will likely be able
+to automatically detect the JDK, and no further configuration is necessary. If you, however,
+decide to install in a custom location, and/or the JDK will not be autodetected for any other
+reason, you can manually configure the installation directory by clicking on the "JDK" entry
+on the tool configuration window and choosing "Specify existing directory ..".
+
+== Installing on Mac OS X ==
+
+First, download the latest version of JDK (NOT JRE) from Oracle's website:
+
+@link http://www.oracle.com/technetwork/java/javase/downloads/index.html "Java SE Downloads"
+
+Make sure to choose the "Mac OS X" version / DMG file. After installing the file in a normal
+manner, it should be automatically detected by Eqela Studio.
+
+== Installing on Linux ==
+
+If your distribution vendor makes Java available as a standard download through the package
+manager, you are free to install it that way. Just make sure that the Java version is recent
+enough (at least JDK 6 or higher). If the Java is installed in this manner to a standard location
+(eg. as /usr/bin/java), then Eqela Studio should discover it automatically. In other cases,
+continue to follow the instructions below:
+
+As with the other platforms, first download the latest version of JDK (NOT JRE) from the Oracle
+website:
+
+@link http://www.oracle.com/technetwork/java/javase/downloads/index.html "Java SE Downloads"
+
+Choose the version that is appropriate for your system: We recommend using the tar.gz installers
+on any Linux platform, as this provides a generic installation procedure. Then, choose the
+appropriate processor target: Either "Linux x86" for 32bit computers or "Linux x64" for 64bit
+systems. If you have a 64bit system and you choose the 32bit installer, it may still be able
+to work, but you will probably need to install 32bit support libraries on your system (depending
+on your distribution).
+
+After the download, the installation simply involves extracting the tar.gz file and saving
+the contents somewhere on your hard drive. Wherever you choose to save the files, you must
+then go back to Eqela Studio, the tools configuration dialog, then choose "JDK" from the list and
+select "Specify existing directory ..". Then choose the directory where you have saved the
+extracted files.

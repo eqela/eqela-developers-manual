@@ -1,0 +1,100 @@
+= Control structures =
+
+== If .. Else ==
+
+The if .. else constructs are used as follows:
+
+--- code ---
+if(condition) {
+        ; // execute if condition is true
+}
+else {
+        ; // execute if condition is false
+}
+--- code ---
+
+== While ==
+
+While constructs are used as follows:
+
+--- code ---
+while(condition) {
+    ; // execute while condition is true
+}
+--- code ---
+
+While blocks can be interrupted with the "break" statement or restarted with the "continue" statement:
+
+--- code ---
+while(condition) {
+    if(want_to_stop) {
+        break;
+    }
+    continue;
+    ; // will not reach here
+}
+--- code ---
+
+ == Do .. While ==
+
+The do .. while construct is a variation of the while construct, where the condition is checked only at the end (ensuring at least one run of the loop):
+
+--- code ---
+do
+{
+    ; // execute here
+}
+while(condition);
+--- code ---
+
+== For ==
+
+For constructs are used as follows:
+
+--- code ---
+for(initializer; condition; execute_after) {
+    ; // actions here
+}
+--- code ---
+
+== Foreach ==
+
+Foreach constructs are used as follows:
+
+--- code ---
+foreach(var variablename in collection) {
+    // actions here
+}
+--- code ---
+
+In a foreach loop, the variable "variablename" is assigned each of the values in the "collection", one at a time. The "collection" needs to be a datatype that can be iterated over. Currently supported data types include eq.api.Collection, eq.api.Iterator, eq.api.Iterateable and eq.api.String.
+
+The datatype of the loop variable may be dynamically assigned as above ("var"), or it can be explicitly set by the user. Consider the following:
+
+--- code ---
+foreach(String variablename in collection) {
+    // actions here
+}
+--- code ---
+
+In this example, the "variablename" would be assigned to each String value in the collection. All objects in "collection" that are NOT strings would be skipped and ignored.
+
+== Switch ==
+
+Switch constructs are used as follows:
+
+--- code ---
+switch(expression) {
+    case value1: {
+        ; // statements
+    }
+    case value2: {
+        ; // statements
+    }
+    default: {
+        ; // statements
+    }
+}
+--- code ---
+
+Note that this construct differs from what is usual in the C language family in the following ways: (1) All "case" blocks must be enclosed in curly braces "{" and "}", (2) Only one "case" statement is allowed per block and (3) No break statements are required to terminate the case blocks.

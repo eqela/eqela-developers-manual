@@ -1,0 +1,36 @@
+= HTTP client networking =
+
+HTTP, by far the most popular protocol on the Internet today, provides a request / response protocol for network communications. The Eqela framework provides a fully functional HTTP client on all supported platforms (note: In contrast, raw TCP sockets may not be supported on all platforms). The basic use of the HTTP client API is illustrated below:
+
+--- code ---
+// The MySringHTTPClient retrieves the URL address given as a parameter,
+// and prints out the string representation of the received convent.
+// Note the asynchronous nature of the HTTP client API: 
+
+public class MyStringHTTPClient : EventReceiver
+{
+    public void execute(String url, BackgroundTaskManager btm) {
+        // Construct an HTTP GET request for the given URL address
+        var request = HTTPClientRequest.get(URL.for_string(url));
+
+        // Execute the HTTP request, expecting a string response.
+        // If you are transferring binary data, use start_get_buffer instead.
+        // In that case, you would expect an HTTPClientBufferResponse in
+        // on_event instead of HTTPClientStringResponse, as below.
+        request.start_get_string(btm, this);
+
+        // The call above returns immediately: The actual HTTP request is done
+        // in the background, and on_event is called when the request has been
+        // completed.
+    }
+
+    public void on_event(Object o) {
+        // Once the HTTP request is done and the server response has been
+        // received, the response is passed as an event here
+        if(o is HTTPClientStringResponse) {
+            Log.message("Received from server: `%s'".printf()
+                .add(((HTTPClientStringResponse)o).get_data()));
+        }
+    }
+}
+--- code ---

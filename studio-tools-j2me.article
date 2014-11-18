@@ -1,0 +1,26 @@
+= Installing the J2ME (Java ME) tools and libraries =
+
+== Installing on Mac OS X ==
+
+For J2ME compiling on Mac OS X, Oracle makes available the "Java ME SDK 3.0", which can
+be used together with Eqela Studio. Please download from the Oracle website:
+
+@link http://www.oracle.com/technetwork/java/javame/javamobile/download/sdk/java-me-sdk-3-0-1849684.html "Download Java ME SDK 3.0 for Mac OS X"
+
+After installation to the default location, Eqela Studio should discover the tool automatically.
+
+== Installing on Linux and Windows ==
+
+On Linux and Windows, we recommend to use the Java Wireless Toolkit (WTK) for compiling J2ME
+applications. This can be downloaded throught the following link:
+
+@link http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javame-419430.html#sun_java_wireless_toolkit-2.5.2_01b-oth-JPR "Download the Java Wireless Toolkit"
+
+On Windows, if you have downloaded and installed the WTK 2.5.2 to the default / standard location
+(usually C:\WTK2.5.2), then this should be used automatically by Eqela Studio, and no further configuration
+is necessary. Otherwise, you can proceed to manually configure the installation location:
+
+Go back to your project window, then choose the rightmost "tools" menu from the orange toolbar, followed by the entry
+for "configuring" the tools. Then choose "Wireless Toolkit" and "Specify existing directory". In the
+file selector dialog, then choose the directory where the files have been installed. The tool should then
+be correctly installed and usable.

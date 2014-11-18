@@ -1,0 +1,10 @@
+title: The Eqela Developer's Manual
+description: The Eqela documentation found on these pages intends to offer the necessary and essential information for all programmers developing software using Eqela. The focus is, where applicable, on practical code samples that can be readily applied to new programs. The content is subdivided into sections that you can browse below.
+reference: introduction
+reference: tutorials
+reference: about-language
+reference: application-framework
+reference: network-programming
+reference: data-access
+reference: gui-development
+reference: studio

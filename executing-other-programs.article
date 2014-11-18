@@ -1,0 +1,19 @@
+= Executing other programs =
+
+Eqela also provides a mechanism to interact with other programs on the system by executing commands and the other programs on the current system. The exact meaning of that of course varies somewhat depending on the system (eg. on computer platforms this usually means something equivalent to executing a command on the command line, but in an HTML5 environment there really is nothing of the sort). On some platforms, this may be completely unimplemented due to it not being semantically compatible with the platform (eg. In an HTML5 environment in a web browser).
+
+On the platforms where this is supported, however, this is implemented primarily through the com.eqela.libos.ProcessLauncher class. In the usual case, the usage of the class is somewhat straightforward:
+
+--- code ---
+// executes the "firefox" command in the background
+Process process1 = ProcessLauncher.for_command("firefox").start();
+
+// executes the file /bin/bash in the background
+Process process2 = ProcessLauncher.for_file(File.for_native_path("/bin/bash")).start();
+
+// executes the command "cat /etc/passwd" and waits for the command to return
+int return_value = ProcessLauncher.for_string("cat /etc/passwd").execute();
+
+// executes the command "df" and stores the output of the command in the string variable "output"
+String output = ProcessLauncher.for_string("df").execute_pipe_string();
+--- code ---

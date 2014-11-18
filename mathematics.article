@@ -1,0 +1,9 @@
+= Mathematics support =
+
+== Mathematical functions ==
+
+General mathematics support in Eqela is supplied through the "eq.api.Math" and "eq.api.MathConstant" types. Wherein the former provides mathematical functions, methods and operations, the latter provides common mathematical constants, as the name implies. The mathematical functions can be called statically through the Math class, and the constants can likewise be accessed statically, as follows:
+
+--- code ---
+double sinpi = Math.sin(MathConstant.M_PI);
+--- code ---

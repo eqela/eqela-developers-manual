@@ -1,0 +1,11 @@
+= Installing Proguard (Java code optimizer and obfuscator) =
+
+Proguard installers can be downloaded through the Proguard Sourceforge site:
+
+@link http://sourceforge.net/projects/proguard/files/ "Download the Proguard installer"
+
+Once downloaded, you would end up with the downloaded file somewhere on your hard drive. Then go back to
+your Eqela Studio, choose the rightmost "tools" menu from the orange toolbar, followed by the entry
+for "configuring" the tools. Then choose "Proguard" and "Install this tool from a file". In the
+file selector dialog, then select the file that you have just downloaded. The tool should then
+be correctly installed.

@@ -1,0 +1,10 @@
+= Installing the GNU compiler (gcc) on Linux =
+
+On Linux, the standard compiler to use is gcc. Eqela Studio autodetects the system compiler installed
+at /usr/bin/gcc, where available. If you are on a Linux system, you will need to use whatever standard
+method your Linux distribution provides in order to install the GCC compiler and libraries. To successfully
+compile Eqela appications, you will also need to install the development libraries for GTK+ v2.0.
+
+Cross compiling Linux applications from other operating systems is not really actively supported by
+the Eqela team, but it should work just fine, but you will need to supply your own gcc cross-compiler
+and libraries. Generally, to compile for Linux, you should be running Eqela Studio on Linux.

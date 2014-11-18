@@ -1,0 +1,27 @@
+= What can Eqela do? =
+
+The short answer to this question is simple: Anything. As a general purpose language, there is really no limitation imposed as to the type of programs that can be made. In practice, Eqela is commonly used to develop the following kinds of programs:
+
+== Mobile applications ==
+
+Eqela is ideally suited for the development of mobile applications that work on multiple mobile operating systems. Due to the fundamental characteristics of the Eqela technology (source code conversion), the applications developed with Eqela will work well and naturally in any environment (whether Java, Objective-C, C#, JavaScript, etc.) without introducing additional overhead, whether in terms of installer size, runtime performance or memory use. Furthermore, due to the tight proximity to all native languages, Eqela applications can access any API on the target platform through native code embedding.
+
+== Desktop applications ==
+
+The same GUI applications developed for the mobile environment can be also used on the desktop (or vice versa). At the simplest, only a recompilation is needed. The same user interface framework is used, and can be used to create a 100% identical experience on both, if such is desired. Differences can of course be introduced if so desired, however.
+
+== Web applications ==
+
+One of the many cool things is also the ability to compile Eqela programs directly to the JavaScript environment. As such, an application developed for the mobile environment or the desktop can also be compiled to JavaScript, in which case it will run inside a web browser but will look exactly like its desktop or mobile counterpart. The application requires no plugin, and can work on mobile or desktop browsers.
+
+== Command line tools ==
+
+Not all applications will have to have a GUI: Eqela applications can well be targeted also for the text based command line environment. The applications can accept input as command line parameters and/or communicate through standard I/O streams (stdin, stdout, stderr).
+
+== Web services (server side software) ==
+
+Eqela also comes with a complete web server and web service development framework, which are used to implement server side solutions, which can be either static or dynamic websites, or web services accessing databases and/or integrating with other websites. Indeed, all Eqela websites are running on Eqela.
+
+== Other network servers / services ==
+
+The ability to develop server side software is by no means limited to the HTTP (= "web") protocol. Eqela supports raw socket communication in either direction, and can be used to implement any protocol on the server side as well as the client. Being convertible to processor-native code, Eqela servers can be particularly efficient as compared to some other environments (eg. Java).

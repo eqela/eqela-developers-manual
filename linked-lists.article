@@ -1,0 +1,24 @@
+= Using linked lists =
+
+The LinkedList class provides an ordered (but not indexed) collection type that allows fasts inserts, appends and removes for any amount of elements.
+
+--- code ---
+// construct a LinkedList with four string elements
+var list = LinkedList.create();
+list.append("This ");
+list.append("is ");
+list.append("a ");
+list.append("test ");
+
+// print the number of elements on the console
+Log.message(list.count());
+
+// iterate through and print each element in turn
+// (NOTE: do not iterate a LinkedList by using indexes as you would
+// an array: Instead use iterators / foreach loops)
+foreach(String s in list) {
+     Log.message(s);
+}
+--- code ---
+
+A linked list is a specialized subtype of the generic Collection type. Most of the operations to be performed on a linked list (such as count, remove, iterate, append, get, set, etc.) are shared by other types derived from eq.api.Collection (notably Array). The operations perform differently, however, depending on the specific type: Index based lookups are fast on arrays, whereas inserts and removals are faster on linked lists.

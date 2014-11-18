@@ -1,0 +1,37 @@
+= Installing the ADT (Android Development Tools) Bundle =
+
+== Downloading and installing the ADT Bundle ==
+
+The Android SDK is distributed in the form of what they call the "ADT Bundle", which contains
+a number of libraries and tools for compiling Android applications. In order to build Android
+applications from Eqela, the ADT bundle is also required. In all cases, the bundle must be downloaded
+from the Android developer website:
+
+@link http://developer.android.com/sdk "Android SDK downloads"
+
+Once there, click on the "Download the SDK" link and make sure that you will be receiving
+a version that is appropriate for your current development platform (eg. "ADT Bundle for Mac"
+if you are indeed on a Mac, etc.).
+
+Once downloaded, you would end up with a ZIP file somewhere on your hard drive. Then go back to
+your Eqela Studio, choose "Android tools" from the orange toolbar, followed by "Configure Android
+tools". The choose "ADT Bundle" and "Install this tool from a file". In the file selector dialog,
+then select the ZIP file that you have just downloaded. The ADT bundle should then be correctly
+installed.
+
+You can test your installation by selecting either the SDK manager or the Android emulator from
+the "Android tools" menu. They may sometimes be slow to start, but if those tools execute
+correctly, then your ADT Bundle has been correctly installed.
+
+== Sharing the ADT Bundle with Android Studio ==
+
+Alternatively, if you already have installed Android Studio, or if you prefer to install that instead,
+then Eqela Studio will automatically detect the installation if you have installed it in the
+default location. Since Android Studio includes a copy of the ADT Bundle, once autodetected,
+no further configuration is necessary, and the Android tools should automatically work as expected.
+
+== Special installation option for Linux ==
+
+On Linux, you also have the option to unpack the ADT bundle to the directory `~/.android_sdk'. If you
+do, then it will automatically detected, and no further configuration is needed. This is provided
+for convenience for those who would prefer to install this way.

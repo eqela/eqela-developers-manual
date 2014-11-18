@@ -1,0 +1,12 @@
+title: The Eqela programming language
+description: The Eqela programming language is a general-purpose, object oriented programming language that can be used for many development tasks, including mobile application development, web development, server applications, desktop applications and embedded software. The fundamental principle behind Eqela is the ability to convert Eqela source code to other programming languages in order to be able to target any runtime execution platform, ensuring the ability to execute the program regardless of where it should be executed. On these pages, you will find additional information about the language and its features.
+reference: source-files-and-modules
+reference: basic-syntax
+reference: comments
+reference: variables-and-data-types
+reference: type-casting
+reference: operators
+reference: control-structures
+reference: object-oriented-programming
+reference: conditional-compilation-and-preprocessing
+reference: embedding-code-in-other-languages

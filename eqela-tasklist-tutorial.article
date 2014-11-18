@@ -1,0 +1,387 @@
+= The Eqela Tasklist application tutorial (widget engine) =
+
+== Introduction ==
+
+This step-by-step tutorial is intended to introduce the reader to several concepts of
+Eqela programming. In this tutorial, we will create a simple tasklist application, with
+the ability to add and remove entries to a scrollable tasklist. The tasklist will be
+saved as it is edited. The application is a graphical application implemented using the
+Eqela Widget framework, and works on all supported GUI platforms.
+
+== Prerequisites ==
+
+This tutorial is intended to be used with Eqela Studio. Therefore, before getting started,
+you will need to install Eqela Studio. If you have not yet done so, please go to link
+below and install the version of Eqela Studio that is suitable
+for your system. Then continue from here forward.
+
+@link http://dev.eqela.com/download "Download Eqela Studio"
+
+== Getting started ==
+
+To get started, run your Eqela Studio, log in (register your Eqela account if necessary),
+and you should be presented with the orange screen where you can manage your projects.
+Since we are going to start a new application, choose the topmost option that is labelled
+"Create a new project ..".
+
+=== Project / product name ===
+
+You can give the project any name of your choosing, but do keep it relatively short, as this
+is the name that will be displayed in application menus, launchers, etc. For this tutorial,
+the name "Eqela Tasklist" would be very suitable.
+
+=== Vendor ID ===
+
+The vendor ID is a short string that identifies you as the developer, and is automatically
+prepended to the application name for the sake of creating a unique identifier for the
+application. The vendor ID is commonly expressed in the so-called "reverse domain" notation,
+resembling a website address but with the fields reversed in order (eg. "eqela.com" -> "com.eqela").
+This field must not contain spaces or special characters other than dots. A good choice
+here would be either "com.<yourcompanyname>" or "com.<firstname><lastname>", eg.
+"com.jobandesther" or "com.rogerwaters" (depending on your name or the name of your company).
+
+=== Project Template ===
+
+Eqela Studio comes with a number of preconfigured templates that can help you get started.
+In this case, since we are developing a GUI application based on the widget framework,
+choose "GUI application (Widget Engine)", which should be the default.
+
+=== Create in directory ===
+
+By changing the directory path here, you can customize the location on your system / hard
+drive that will be used to store your project. The default value here will point to a
+dedicated directory for Eqela projects, and you can safely accept the pre-filled value.
+
+In the end, click "OK" to create your new project.
+
+== Handling your new project ==
+
+After clicking "OK", you will find yourself in the Project Editor component of Eqela Studio.
+This is where all actual work will take place. On the left side of the newly opened window,
+you will see a file explorer that should be pre-filled with two files: "eqela.config" and
+"Main.eq". These are generated through the project template that you selected.
+
+Click on "Main.eq", and you will see the template code that will also serve as the starting
+point of our new application.
+
+After this, click on the button labeled "Execute" in the orange toolbar on top of the code editor.
+Clicking this will compile your application and execute it. The normal cycle of working will
+be to edit your code, then execute to test and see how your code runs.
+
+== Creating a basic user interface ==
+
+=== Editing the Main class ===
+
+By default, the template user interface does not do much of anything. It just displays a
+text label. Let us change the Main class to do something more interesting. Still editing the Main.eq
+file, remove the current contents and replace them with the following:
+
+--- code ---
+public class Main : LayerWidget
+{
+	public void initialize() {
+		base.initialize();
+		set_size_request_override(px("60mm"), px("80mm"));
+		add(new TaskListWidget());
+	}
+}
+--- code ---
+
+This is a very minimal implementation of a widget class. Basically it just sets a size request for
+the application, requesting for a size of 6cm x 8cm. Note that this is a request, and is not granted
+on all platforms. More or less, the size request is observed on desktop platforms (Linux, Windows, OS X),
+while on mobile platforms, the application window will generally fill the entire application screen, and
+the size request is ignored. Then, in addition to the size request, the Main class here adds an instance
+of another widget named "TaskListWidget".
+
+=== Adding the TaskListWidget class ===
+
+Now we will also need to create that TaskListWidget class. To do that, click on the button labelled "New .."
+at the top left corner of your project editor window. This brings up a popup menu of options; from there,
+choose "New Eqela class ..".
+
+In the dialog that follows, you are again allowed to customize the location on the hard drive where to
+save the newly created class file. The default here is to create in the same directory as the file you
+are currently editing, which is what we want: Keep the default value here.
+
+Just like with the projects, the created classes also have templates. In our case, we will be manually
+writing all code for our class, so we can keep the default here ("Regular Eqela class").
+
+Lastly, you are asked to specify the name of the class to create: Type "TaskListWidget" here. Then click "OK".
+You should be then taken to the code editor with the newly created TaskListWidget.eq file opened. Replace
+its contents with the following code:
+
+--- code ---
+class TaskListWidget : LayerWidget
+{
+	TextInputWidget text;
+	ListSelectorWidget list;
+
+	public void initialize() {
+		base.initialize();
+		set_draw_color(Color.instance("black"));
+		add(CanvasWidget.for_color(Color.instance("white")));
+		var vbox = BoxWidget.vertical();
+		vbox.set_margin(px("1mm"));
+		vbox.set_spacing(px("1mm"));
+		var input = BoxWidget.horizontal();
+		input.set_spacing(px("1mm"));
+		input.add_box(1, text = TextInputWidget.instance());
+		input.add_box(0, ButtonWidget.for_string("Add"));
+		vbox.add(input);
+		list = ListSelectorWidget.instance();
+		list.set_show_desc(false);
+		list.set_show_icon(false);
+		vbox.add_box(1, list);
+		add(vbox);
+	}
+
+	public void cleanup() {
+		base.cleanup();
+		list = null;
+		text = null;
+	}
+}
+--- code ---
+
+You will notice that if you now try to compile and execute the application, there will be errors (go ahead, try it).
+This is because the TaskListWidget class is using existing user interface components from libraries that have not
+yet been declared to be a part of the current project. The dependency libraries are configured in the "eqela.config"
+file that we must now edit. Click on "Open .." next to the "New .." button at the top right corner of the window,
+then select "eqela.config" from the file list.
+
+You will notice that the application already "depends" on com.eqela.libcommonwidget. This is a library that contains
+many of the "commonly" used widgets, such as the ButtonWidget. Some widgets, however (such as TextInputWidget and
+ListSelectorWidget) are provided in separate libraries. To include these libraries, add the following lines in
+the eqela.config file:
+
+--- code ---
+depends: com.eqela.libtextinputwidget
+depends: com.eqela.libselectorwidget
+--- code ---
+
+After this, the application should compile and execute correctly.
+
+== Adding entries to the list ==
+
+Now let's add some functionality. As you notice, you can type things in the text field and click on the button, but
+nothing happens. Let us add the functionality for adding entries to the list. Modify the TaskListWidget so that it begins
+this way:
+
+--- code ---
+class TaskListWidget : LayerWidget, EventReceiver
+{
+	class AddEvent
+	{
+	}
+
+	TextInputWidget text;
+	ListSelectorWidget list;
+	Collection items;
+--- code ---
+
+(Notably, we have added the "EventReceiver" as one of the base types, add the inner class "AddEvent" and the "items" class variable)
+
+Then on the line inside the initialize() method where the ButtonWidget is created, change the entire line to be as follows instead
+of what it is previously:
+
+--- code ---
+input.add_box(0, ButtonWidget.for_string("Add").set_event(new AddEvent()));
+--- code ---
+
+Then add the following methods in the TaskListWidget class (preferrably after the cleanup() method):
+
+--- code ---
+	void on_items_changed() {
+		if(list != null) {
+			list.set_items(items);
+		}
+	}
+
+	void add_item(String item) {
+		if(String.is_empty(item)) {
+			return;
+		}
+		if(items == null) {
+			items = LinkedList.create();
+		}
+		items.prepend(item);
+		on_items_changed();
+	}
+
+	void on_add_event() {
+		add_item(text.get_text());
+		text.set_text("");
+		text.grab_focus();
+	}
+
+	public void on_event(Object o) {
+		if(o is AddEvent) {
+			on_add_event();
+			return;
+		}
+	}
+--- code ---
+
+After this, execute your program again. Entering text, then clicking "Add" should now add entries to the list.
+
+== Handling the enter key and keyboard focus ==
+
+When using this application on a computer, it may feel a little bit frustrating that hitting "Enter" does not 
+automatically add the entry, as one might reasonably expect. Also, you would probably want the keyboard focus
+to be automatically set to the text input field upon application startup. We can implement both these things as
+follows:
+
+First, add the present object as the "listener" for the text input widget. Modify the initialize() method by
+adding the following line at the end of the method (or anywhere after the line where the TextInputWidget is
+created):
+
+--- code ---
+text.set_listener(this);
+--- code ---
+
+This causes the text input widget to send events to the current object (including events when the enter key
+is pressed). We then catch them by adding the following code to our on_event() method:
+
+--- code ---
+		if(o is TextInputWidgetEvent && ((TextInputWidgetEvent)o).get_selected()) {
+			on_add_event();
+			return;
+		}
+--- code ---
+
+This should handle the enter key presses now automatically. Then, to automatically set the focus, add the
+following method to your class:
+
+--- code ---
+	public void start() {
+		base.start();
+		if(text != null) {
+			text.grab_focus();
+		}
+	}
+--- code ---
+
+Then try to execute your application again, and hopefully it will feel more comfortable to use.
+
+== Deleting items ==
+
+Now, for the application to be useful, we should be able to also delete items from the list (not just add). Let
+us do it so that when you click on one of the items, it can be deleted, but only after asking the user for confirmation.
+
+Add the following method to your class:
+
+--- code ---
+	public void delete_item(String todelete) {
+		items.remove(todelete);
+		on_items_changed();
+	}
+--- code ---
+
+Then, to handle the confirmation, add also the following ''inner class'' to your TaskListWidget (on the same level as your methods):
+
+--- code ---
+	class DeleteConfirmDialog : YesNoDialogWidget
+	{
+		property TaskListWidget widget;
+		property String todelete;
+
+		public void initialize() {
+			set_title("Confirmation");
+			set_text("Are you sure to delete the task `%s'".printf().add(todelete).to_string());
+			base.initialize();
+		}
+
+		public bool on_yes() {
+			widget.delete_item(todelete);
+			return(false);
+		}
+	}
+--- code ---
+
+Then, to trigger the deleting, add also the following code inside your on_event() method:
+
+--- code ---
+		if(o is String) {
+			Popup.widget(get_engine(), new DeleteConfirmDialog().set_widget(this).set_todelete((String)o));
+			return;
+		}
+--- code ---
+
+The reason for this to work is that by default, when an item in the ListSelectorWidget is clicked, the ListSelectorWidget will
+raise the actual item as an event, which in our case is a String object (the Strings that we insert inside the items Collection).
+
+You will notice that once again, if you execute your application, there will be errors (try it). This is because the YesNoDialogWidget
+and the Popup class are again stored in different libraries. Add the following two lines again to your eqela.config to resolve
+the errors:
+
+--- code ---
+depends: com.eqela.libdialogwidget
+depends: com.eqela.libpopupwidget
+--- code ---
+
+Now try to execute your application again, and try to delete some items you have added.
+
+== Saving and restoring the data ==
+
+Finally, you will notice that the application only retains its data while it is running. If you close the app, all of your edits
+are lost. For this to be useful, the data should be saved and restored so that the application can be closed and reopened without
+losing data.
+
+We will be using the ApplicationData facility of Eqela to do this. Add the following methods to your class:
+
+--- code ---
+	void save_items() {
+		var ad = ApplicationData.for_this_application();
+		if(ad == null) {
+			return;
+		}
+		ad.mkdir_recursive();
+		var sb = StringBuffer.create();
+		foreach(String item in items) {
+			sb.append(item);
+			sb.append_c('\n');
+		}
+		ad.entry("items.txt").set_contents_string(sb.to_string());
+	}
+
+	void load_items() {
+		var ad = ApplicationData.for_this_application();
+		if(ad == null) {
+			return;
+		}
+		var i = LinkedList.create();
+		foreach(String line in ad.entry("items.txt").lines()) {
+			i.add(line);
+		}
+		items = i;
+		on_items_changed();
+	}
+--- code ---
+
+Then, at the very beginning of the existing on_items_changed() method, add the following line:
+
+--- code ---
+		save_items();
+--- code ---
+
+Likewise, on the very last line of the initialize() method, add the following line:
+
+--- code ---
+		load_items();
+--- code ---
+
+Since the ApplicationData class is again in a separate library, add this line to your eqela.config to
+prevent compilation errors:
+
+--- code ---
+depends: com.eqela.libapplicationdata
+--- code ---
+
+Now execute your application again. Add and delete items as you please, close the application and reopen;
+the data should remain persistent.
+
+== In closing ==
+
+Congratulations, you have made a functioning cross platform tasklist application! Feel free to continue your
+app by extending it, modifying and adding features.

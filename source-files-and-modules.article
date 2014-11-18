@@ -1,0 +1,16 @@
+= Source files and modules =
+
+Eqela source files are named with the ".eq" extension. These files are organized in modules, wherein all source files within a module are always compiled together as a compilation unit. In effect, a number of ".eq" files within one directory form the contents of a module and a compilation unit, wherein the name of the directory is also the name of the module. Furthermore, all classes and interfaces within the module are also automatically assigned to a namespace, the name of which is automatically that of the module itself.
+
+For example, consider the following directory layout:
+
+--- code ---
+myapp/
+    Main.eq
+    SupportingClass.eq
+    OtherClass.eq
+--- code ---
+
+This source tree represents three classes named "Main", "SupportingClass" and "OtherClass", all defined in module and namespace named "myapp". To address them externally, they could be addressed as "myapp.Main", "myapp.SupportingClass" and "myapp.OtherClass", respectively.
+
+A class named "Main" in any module is special, and is used as the entry point to the application if the module is executed as an application. Depending on the type of the application, this may represent, for example, a classic "main" type function for a command line tool, a GUI widget for a graphical application, or a web application implementation for a server-based web application.

@@ -1,0 +1,17 @@
+= Using a Stack =
+
+The Stack class provides a data structure that implements a Last-In-First-Out (FIFO) approach:
+
+--- code ---
+var stack = Stack.create();
+stack.push("This ");
+stack.push("is ");
+stack.push("a ");
+stack.push("test");
+Log.message(stack.count()); // Output: 4
+Log.message(stack.peek()); // Output: test
+Log.message(stack.pop()); // Output: test
+Log.message(stack.pop()); // Output: a
+Log.message(stack.peek()); // Output: is
+Log.message(stack.count()); // Output: 2
+--- code ---

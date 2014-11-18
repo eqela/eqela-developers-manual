@@ -1,0 +1,40 @@
+= JSON support =
+
+JSON support is implemented through the com.eqela.libjson package, and can be very easily used as follows:
+
+--- code ---
+// The following sample class demonstrates the use of the Eqela JSON classes,
+// demonstrating both JSON parsing and construction.
+
+class JSONSample
+{
+    public String get_json_data() {
+        // We construct a hash table object that
+        // holds the data fields
+        var data = HashTable.create();
+        data.set("name", "Little Boy");
+        data.set("age", "10");
+
+        // The JSON format can handle arrays, linked lists and
+        // hash tables. Here we insert a linked list.
+        data.set("hobbies", LinkedList.create()
+            .add("Football")
+            .add("Soccer")
+            .add("Baseball"));
+
+        // The JSONEncoder.encode accepts either a HashTable or
+        // a Collection object, and returns a string representation
+        // of the object and all its sub-objects.
+        String json = JSONEncoder.encode(data);
+        return(json);
+    }
+
+    public HashTable json_to_hashtable(String json) {
+        return(JSONParser.parse_string(json) as HashTable);
+    }
+
+    public Collection json_to_collection(String json) {
+        return(JSONParser.parse_string(json) as Collection);
+    }
+}
+--- code ---

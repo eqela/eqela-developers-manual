@@ -1,0 +1,23 @@
+= Memory allocation and buffers =
+
+The Eqela API supports arbitrary memory buffer management through the Buffer interface. An instance of type "eq.api.Buffer" represents a chunk of memory of a certain size, wherein the size is measured in bytes. A buffer instance has two main characteristics: The size of the buffer in bytes, and a pointer to the beginning of the buffer.
+
+While buffer instances can be obtained through various means throughout the API, allocating a chunk of memory can be done through the use of the "eq.api.DynamicBuffer" interface. This returns an instance of DynamicBuffer, which is also an instance of "eq.api.Buffer" (as Buffer is a prerequisite of DynamicBuffer). Thus, to allocate a buffer of 100 bytes, you could do the following:
+
+--- code ---
+var mybuffer = DynamicBuffer.create(100);
+--- code ---
+
+To perform operations on the buffer, you would need to get an instance of an "eq.api.Pointer", which supports basic operations such as set_byte(), get_byte() and cpyfrom(). Thus, to initialize the buffer you created, you could use the following kind of code:
+
+--- code ---
+int n;
+var ptr = mybuffer.get_pointer();
+if(ptr != null) {
+    for(n=0; n<mybuffer.get_size(); n++) {
+        ptr.set_byte(n, n);
+    }
+}
+--- code ---
+
+More commonly, most probably you would use the cpyfrom() method of the Pointer interface to copy a chunk of data from another buffer (rather than getting/setting byte by byte, as this would probably be very inefficient for large sets of data).

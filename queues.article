@@ -1,0 +1,17 @@
+= Using a Queue =
+
+The Queue class provides a data structure that implements a First-In-First-Out (FIFO) approach:
+
+--- code ---
+var queue = Queue.create();
+queue.push("This");
+queue.push("is ");
+queue.push("a ");
+queue.push("test");
+Log.message(queue.count()); // Output: 4
+Log.message(queue.peek()); // Output: This
+Log.message(queue.pop()); // Output: This
+Log.message(queue.pop()); // Output: is
+Log.message(queue.peek()); // Output: a
+Log.message(queue.count()); // Output: 2
+--- code ---

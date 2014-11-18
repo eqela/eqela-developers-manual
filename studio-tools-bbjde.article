@@ -1,0 +1,13 @@
+= Installing the BlackBerry JDE / Plugin for Eclipse (for BlackBerry 7 and older) =
+
+To compile for the older, Java-based BlackBerry platforms (BB7 and older), you will need to
+download and install the relevant tools from the BlackBerry website. The tools are officially
+available for either Mac OS X or Windows, and can be downloaded through the link below. Look
+for the "BlackBerry Plug-in for Eclipse" for your platform.
+
+@link http://developer.blackberry.com/bbos/java/download/eclipse/ "Download the BlackBerry Plug-in for Eclipse"
+
+After installation, the plugin may be autodetected as is. If not, then specify the path manually
+by clicking on the "tools" menu on the orange toolbar, then "configure" the tools, select
+"BlackBerry Plug-in for Eclipse", and "Specify existing directory". Then choose the directory
+where the tool was installed.

@@ -1,0 +1,5 @@
+title: Developing Graphical User Interfaces (GUIs) with Eqela
+description: There are are number of different technologies, frameworks and methods for developing graphical user interfaces in Eqela. This section attempts to explain the different ways and to help the reader determine which approach is appropriate for the application being developed.
+reference: gui-development-intro
+reference: widget-applications
+reference: sprite-engine-applications

@@ -1,0 +1,8 @@
+title: Eqela data structures
+description: Eqela provides many standard data structures within the standard framework. Browse below for details:
+reference: arrays
+reference: linked-lists
+reference: queues
+reference: stacks
+reference: hashtables
+reference: iterators

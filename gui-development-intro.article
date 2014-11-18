@@ -1,0 +1,37 @@
+= Introduction to Eqela GUI development =
+
+Development of graphical applications using Eqela can be done in various ways, and can involve a combination of different frameworks / libraries.
+Contained herein is a short introduction / overview of the related libraries.
+
+== com.eqela.libgui ==
+
+All Eqela GUI development is fundamentally based on the com.eqela.libgui framework. The libgui framework
+provides basic GUI features and concepts, such as color, font, text, frame (window), and enables the
+application to open a window into which the application can create its user interface.
+
+The libgui also provides the concept of "surfaces", fundamental user interface components that roughly
+refer to rectangular areas on screen that can be moved, rotated, scaled, resized, and that can have various
+levels of transparency. Surfaces are a low level user interface component in Eqela, which are implemented
+on the various supported target platforms by using whatever native method best supports the concept (eg.
+on iOS, surfaces are implemented using UIViews, on Android using the Android View class, and so on). While
+not all GUI drawing (eg. games) necessarily uses surfaces, the functionality is nevertheless provided on
+libgui.
+
+== com.eqela.libwidget ==
+
+The widget framework is something that is implemented on top of the libgui framework, and provides
+a complete framework for the development and usage of reusable graphical user interface components
+(that we call "widgets"). The widget framework provides several ways to create user interface based
+on rules and layouts so that the user interface continues to behave consistently even when resized
+to different sizes. The widget framework also assist in creating user interfaces that adapt and change
+dynamically when screen sizes change. Various standard widgets are provided (eg. button, label, menus,
+etc.) to easily implement commonly used features.
+
+== com.eqela.libspriteengine ==
+
+While the widget library provides a framework for reusable user interface components that are generally
+usable in many kinds of different applications, the sprite engine is intended for applications that
+require high performance 2D graphics. Commonly this means games, but is not necessarily limited to
+that. In any case, the Eqela sprite engine provides a full featured 2D game engine that can be used
+to implement sprites and layers with rotation, scaling, alpha transparency, timers, animations, and
+many other things commonly used to make 2D games.

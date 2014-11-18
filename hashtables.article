@@ -1,0 +1,11 @@
+= Using a hash table =
+
+A hash table allows the creation of collections as key/value pairs where they key is a string, and values can be quickly looked up using the string. A HashTable instance could be used as follows:
+
+--- code ---
+var myhashtable = HashTable.create();
+myhashtable.set("key1", "First");
+myhashtable.set("key2", "Second");
+var ff = myhashtable.get("key2");
+Log.message(ff); // Output: Second
+--- code ---

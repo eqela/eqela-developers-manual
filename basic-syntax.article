@@ -1,0 +1,29 @@
+= Basic syntax of Eqela =
+
+The Eqela programming language was designed with multi-language compatibility in mind. At the same time, it was designed to be familiar and easy to adopt for programmers. As such, it belongs to the "C" syntax family so that for anyone with experience in other languages in this family (eg. Java, C#, C/C++, JavaScript, Objective-C, ..) would easily find themselves comfortable with the syntax. The general syntax largely follows familiar conventions, as is briefly shown in the sample below:
+
+--- code ---
+// samplecode.eq -- Eqela code files always have a ".eq" extension
+
+/*
+ * This is a class declaration
+ */
+
+class MyClass
+{
+    // And this is a method. This method returns an integer value
+    public int mymethod(int x) {
+        int n = 100;
+        n = n + x;
+        return(n);
+    }
+
+    // Another method. This method loops through some values, but returns nothing.
+    public void execute() {
+        int n;
+        for(n=0; n<100; n++) {
+            Log.message(mymethod(n));
+        }
+    }
+}
+--- code ---

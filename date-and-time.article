@@ -1,0 +1,40 @@
+= Date and time =
+
+For accessing date and time information, the framework provides a few easy to use methods:
+
+--- code ---
+class DateTimeSample
+{
+    public static void execute() {
+        // Returns the number of seconds elapsed since January 1, 1970
+        // (returns the value as a "long" variable)
+        long secs = SystemClock.seconds();
+        Log.message("Seconds elapsed: %d".printf().add(secs));
+
+        // Returns the same information, but in a TimeVal object.
+        // The object contains information up to microsecond precision
+        // (if available from the underlying operating system)
+        var tv = SystemClock.timeval();
+        Log.message("seconds: %d, useconds: %d".printf().add(tv.get_seconds()).add(tv.get_useconds()));
+
+        // TimeVal objects can also be compared: The difference between the two objects
+        // is returned in microseconds
+        var diff_usec = TimeVal.diff(SystemClock.timeval(), tv);
+        Log.message("Time elapsed between the two calls: %d microseconds".printf().add(diff_usec));
+
+        // The com.eqela.libos.DateTime class provides detailed breakdowns of the
+        // information regarding the current date / time:
+        var now = DateTime.for_now();
+
+        // The DateTime class implements the eq.api.Stringable interface, and can
+        // be represented as a string:
+        Log.message("The current date / time is: `%s'".printf().add(now));
+
+        // Detailed information is also available via the get_details() method:
+        var details = now.get_details();
+        if(details != null) {
+            Log.message("The current year is %d".printf().add(details.get_year()));
+        }
+    }
+}
+--- code ---

@@ -1,0 +1,156 @@
+= Operators =
+
+== Unary operators ==
+
+--- code ---
+// The "minus" operator: Change the sign of an operand
+{
+    var n = 10;
+    var m - -n;
+    // m is now -10
+}
+
+// The "not" operator: Flip the boolean value of an operand
+{
+    var n = true;
+    var m = !n;
+    // m is now false
+}
+
+// The "increment" operator: Add 1 to the operand
+{
+    var n = 10;
+    n++;
+    // n is now 11
+}
+
+// The "decrement" operator: Subtract 1 from the operand
+{
+    var n = 10;
+    n--;
+    // n is now 9
+}
+--- code ---
+
+== Logical binary operators ==
+
+--- code ---
+// The "logical or"
+{
+    var a = true;
+    var b = false;
+    var c = a || b;
+    // c is true because one of the operands (a) was true
+}
+
+// The "logical and"
+{
+    var a = true;
+    var b = false;
+    var c = a && b;
+    // c is false because not all of the operands (b) were true
+}
+--- code ---
+
+== Comparative binary operators ==
+
+--- code ---
+// The "equality" operator
+{
+    var a = 10;
+    var b = 20;
+    var c = a == b;
+    // c is false because the variable values are not the same
+}
+
+// The "inequality" operator
+{
+    var a = 10;
+    var b = 20;
+    var c = a != b;
+    // c is true because the variable values are not the same
+}
+
+// The "less than" operator
+{
+    var a = 10;
+    var b = 20;
+    var c = a < b;
+    // c is true because a is less than b
+}
+
+// The "less than or equal" operator
+{
+    var a = 10;
+    var b = 10;
+    var c = a <= b;
+    // c is true because a is equal to b
+}
+
+// The "greater than" operator
+{
+    var a = 10;
+    var b = 20;
+    var c = a > b;
+    // c is false because a is not greater than b
+}
+
+// The "greater than or equal" operator
+{
+    var a = 10;
+    var b = 10;
+    var c = a >= b;
+    // c is true because a is equal to b
+}
+
+// The "data type match" operator
+{
+    var a = new MyClass();
+    var b = a is MyClass;
+    // b is true because object a is of type MyClass
+}
+--- code ---
+
+== Operative binary operators ==
+
+--- code ---
+// The "add" operator
+{
+    var a = 1;
+    var b = 2;
+    var c = a + b;
+    // c is 3
+}
+
+// The "subtract" operator
+{
+    var a = 2;
+    var b = 1;
+    var c = a - b;
+    // c is 1
+}
+
+// The "multiply" operator
+{
+    var a = 2;
+    var b = 3;
+    var c = a * b;
+    // c is 6
+}
+
+// The "divide" operator
+{
+    var a = 4;
+    var b = 2;
+    var c = a / b;
+    // c is 2
+}
+
+// The "modulo" operator
+{
+    var a = 5;
+    var b = 2;
+    var c = a % b;
+    // c is 1
+}
+--- code ---

@@ -1,0 +1,26 @@
+= Resolving Internet addresses via DNS =
+
+The Domain Name Service (DNS) is used to translate human-readable Internet addresses (eg. "www.eqela.com") to routable IP addresses. The Eqela framework provides the necessary facilities to perform these lookups as necessary. The sample below illustrates the practical use:
+
+--- code ---
+// A short sample that demonstrates the resolving of a hostname to an IP address
+// using either the DNSResolver or DNSCache classes.
+
+class MyDNSClass
+{
+    public static void output_ip_address(String hostname) {
+        // The DNSResolver will query for the IP address from the underlying operating system
+        // every time you call the get_ip_address() method:
+        var resolver = DNSResolver.create();
+        if(resolver != null) {
+            Log.message("IP address for `%s' (DNSResolver): `%s'".printf()
+                .add(hostname).add(resolver.get_ip_address(hostname)));
+        }
+
+        // The DNSCache class provides a caching resolver that remembers addresses you have looked up
+        // previously. This is the recommended method:
+        Log.message("IP address for `%s' (DNSCache): `%s'".printf().add(hostname)
+            .add(DNSCache.resolve(hostname)));
+    }
+}
+--- code ---

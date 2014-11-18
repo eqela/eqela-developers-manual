@@ -1,0 +1,65 @@
+= SQL database support =
+
+The Eqela framework includes a straightforward generic interface for accessing any kind of an SQL database. The SQL access interfaces in the package com.eqela.libsql provide features for executing SQL statements and querying data records using SQL. This package does not, in itself, implement any drivers for accessing or connecting to a database server. These would be implemented in separate packages.
+
+--- code ---
+// The following sample class demonstrates the use of the SQL database API.
+// The application reads data from and writes data to the database table.
+
+class SQLDatabaseSample
+{
+    public static bool insert_record(SQLDatabase db, String name) {
+        if(db == null) {
+            return(false);
+        }
+
+        // A statement is first prepared into an SQLStatement object
+        SQLStatement stmt = db.prepare("INSERT INTO tablename SET name = ?;");
+        if(stmt == null) {
+            return(false);
+        }
+
+        // The string parameter is added to the query
+        stmt.add_param_str(name);
+
+        // Then the statement is executed
+        return(db.execute(stmt));
+    }
+
+    public String get_name_for_id(SQLDatabase db, String id) {
+        if(db == null) {
+            return(null);
+        }
+        SQLStatement stmt = db.prepare("SELECT name FROM tablename WHERE id = ?;");
+        if(stmt == null) {
+            return(null);
+        }
+        stmt.add_param_str(id);
+
+        // When querying for a single row, the framework returns a hash table
+        HashTable record = db.query_single_row(stmt);
+        if(record == null) {
+            return(null);
+        }
+        return(record.get_string("name"));
+    }
+
+    public Collection get_all_names(SQLDatabase db) {
+        if(db == null) {
+            return(null);
+        }
+        SQLStatement stmt = db.prepare("SELECT name FROM tablename;");
+        if(stmt == null) {
+            return(null);
+        }
+        var v = LinkedList.create();
+
+        // When querying for multiple forws, the framework returns an iterator
+        // that can be easily iterated with a foreach loop
+        foreach(HashTable record in db.query(stmt)) {
+            v.add(record.get_string("name"));
+        }
+        return(v);
+    }
+}
+--- code ---

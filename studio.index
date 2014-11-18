@@ -1,0 +1,6 @@
+title: The Eqela Studio Integrated Development Environment (IDE)
+description: Eqela Studio is a complete IDE (Integrated Development Environment) for software developers. The Eqela Studio itself is fully programmed using Eqela, and offers many features specifically for the purpose of developing software that is intended to work on multiple target platforms.
+reference: studio-licensing
+reference: studio-tools
+
+## FIXME: FAQ: How to configure Eqela on Windows to use a proxy server

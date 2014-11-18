@@ -1,0 +1,28 @@
+= Comments =
+
+Comments are used to mark parts of source code files to be ignored by the compiler. These are frequently used by programmers to either place helpful "comments" alongside regular code to explain the functionality of the code, or to temporarily block out parts of the code. For whatever purpose the comments are used, they will be ignored by the compiler. Eqela supports both single line and multi-line comments in accordance with the tradition of the C syntax family, as follows:
+
+--- code ---
+// This is a single line comment. Everything until the end of line will be ignored.
+
+int n = 100; // A single line comment does not have to start from the beginning of the line
+
+/* A multi-line comment starts with the slash-asterisk pair.
+   It spans multiple lines, until a closing asterisk-slash pair is encountered.
+   Everything in the middle will be ignored by the compiler. */
+
+int myvariable = /* A comment can also be in the middle of a line of code, although this
+   is not really very nice or readable */ 100;
+
+/*
+// Programmers often comment out blocks of code temporarily when testing or looking
+// for the right way to develop a program. If you do this, make sure to clean up your
+// code from these comments afterwards.
+// This class is ignored because it is inside a comment block.
+class CommentedOutClass
+{
+    void method() {
+    }
+}
+*/
+--- code ---

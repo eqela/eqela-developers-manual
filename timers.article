@@ -1,0 +1,42 @@
+= Timers =
+
+== Generic functionality ==
+
+Timer functionality, providing delayed / scheduled execution of code, is part of the background task manager API that also enables concurrent / threaded execution of tasks. As with the background task facility, an instance of a background task manager is required for execution, which is dependent on the current application environment (see more below). The way the timer API can be used in practice is illustrated in the sample code below:
+
+--- code ---
+class MyTimer : TimerHandler 
+{
+    public bool on_timer(Object arg) {
+        Log.message("This is the timer! It executes in the same thread as the code that runs it.");
+        // The return value indicates whether or not the timer will repeat.
+        // Returning true here would cause the timer to be repeated for another
+        // round with the same delay; returning false will cause the timer to
+        // be cancelled and not called again.
+        return(false);
+    }
+}
+
+public class TimerExecutor
+{
+    public static void execute(BackgroundTaskManager btm) {
+        // Start a timer with a 1000000usec (= 1 second) delay. The on_timer method would
+        // be executed in the same thread after 1 second.
+        var bt = Timer.start(btm, 1000000, new MyTimer(), null);
+        if(bt != null) {
+            // Calling bt.abort() prior to the timer timing out would cancel
+            // the timer and prevent the on_timer() method from being called.
+        }
+    }
+}
+--- code ---
+
+== Timers in GUI applications ==
+
+In Eqela GUI applications, a background task manager that also enables the timer functionality is provided as an integral part of the implementation of the GUI environment (the GUI engine in com.eqela.libgui.GUI provides one, and each user interface "widget" also IS one). For more information about GUI usage, please refer to the Eqela GUI API documentation below.
+
+# FIXME: @reference gui
+
+== Timers in non-GUI applications (server / command line) ==
+
+In non-GUI applications, an application can use the com.eqela.libeventloop.EventLoop class to request for an event loop that asks as a background task manager that also provides timers. Please refer to the documentation on event loops for further information.

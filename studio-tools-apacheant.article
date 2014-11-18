@@ -1,0 +1,20 @@
+= Installing Apache Ant =
+
+Apache Ant is a popular build tool used for compiling Java applications. Ant is also used
+by the Android SDK to compile Android application projects, but is also used for compiling
+on many other Java based platforms.
+
+To install Apache Ant, download the BINARY installer ZIP file from the Apache Ant website:
+
+@link http://ant.apache.org/bindownload.cgi "Apache Ant downloads"
+
+The filename will be something like `apache-ant-x.x.x-bin.zip'. The "x.x.x" represents the
+current version number, the latest of which at the time of this writing was 1.9.4. Generally
+Apache Ant has been well backwards compatible. Be wary though if the version number bumps to
+2.x. The compatibility has only been tested on 1.9.x.
+
+Once downloaded, you would end up with the ZIP file somewhere on your hard drive. Then go back to
+your Eqela Studio, choose the rightmost "tools" menu from the orange toolbar, followed by the entry
+for "configuring" the tools. Then choose "Apache Ant" and "Install this tool from a file". In the
+file selector dialog, then select the ZIP file that you have just downloaded. Apache Ant should then
+be correctly installed.

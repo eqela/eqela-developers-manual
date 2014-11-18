@@ -1,0 +1,34 @@
+= Conditional compilation and preprocessing =
+
+== General functionality ==
+
+The conditional compilation and code preprocessing features of Eqela fall somewhere in between the corresponding capabilities of C (very rich preprocessing) and Java (no preprocessing at all).
+
+The available proprocessing facilities in Eqela are shown below:
+
+--- code ---
+class MyClass
+{
+    IFDEF("variable_name") {
+        // compiled if "variable_name" is defined
+    }
+    ELSE {
+        // compiled otherwise
+    }
+    IFNDEF("some_other_variable") {
+        // compiled if "some_other_variable" is not defined
+    }
+    // substituted with the value of the variable
+    // "my_variable" (a string literal)
+    var str = VALUE("my_variable");
+    IFDEF("this_variable") {
+        // define a value for "that_variable"
+        DEFINE("that_variable", "its value");
+        IFDEF("that_variable") {
+            // always gets compiled in
+        }
+    }
+}
+--- code ---
+
+The compiler defines various built-in variables, including target_* variables that can be used to detect the compilation target environment during build phase.

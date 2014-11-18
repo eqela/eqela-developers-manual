@@ -1,0 +1,42 @@
+= Installing the MinGW compiler (for compiling Windows apps) =
+
+To compile applications for the Windows desktop / server (win32), Eqela Studio
+prefers to use the MinGW compiler, which is available for Windows, Mac OS X and
+Linux, which means you can do your Windows builds on any of those three platforms.
+To download a suitable MinGW compiler, look for the appropriate installers on the
+Eqela download page under the "External tools" section:
+
+@link /download "Download MinGW on the Eqela downloads page"
+
+== Choosing the correct installer ==
+
+You will notice that there are many installers for the MinGW compiler. Depending
+on your development and target platforms, you will need to choose the correct one:
+
+(1) If you are using a Mac, choose an OS X installer; if you are using Linux, choose
+a Linux installer; or if you are using Windows, choose a Windows installer.
+
+(2) If you have chosen a 32bit build target in Eqela Studio, you will need to choose
+a 32 bit compiler; likewise, if you have chosen a 64bit build target, you will need to
+choose a 64 bit compiler.
+
+NOTE: If you install the 32bit compiler and use it together with the 64bit build target,
+the installation will work but the build will fail with mysterious errors. Make sure
+you install the correct compiler.
+
+NOTE: The Windows version of Eqela Studio comes pre-installed with the MinGW compiler
+targeting the current platform (whether 32bit or 64bit). However, to make 32bit Windows
+apps on the 64bit version of Eqela Studio or vice versa, you will need to install an
+appropriate compiler from here.
+
+== Installing the downloaded file ==
+
+Once you have downloaded the correct file, you would end up with the ZIP file somewhere
+on your hard drive. Then go back to your Eqela Studio, choose the rightmost "tools" menu
+from the orange toolbar, followed by the entry for "configuring" the tools. Then choose
+the entry for "MinGW compiler" and "Install this tool from a file". In the
+file selector dialog, then select the ZIP file that you have just downloaded. The tool should then
+be correctly installed. Prior to your installation, make sure you double check that the
+version of the installer is correct (that it is for your operating system
+and is matching to the bit count of the target platform).
+

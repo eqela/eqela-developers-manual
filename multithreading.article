@@ -1,0 +1,95 @@
+= Multithreading =
+
+== Low level threading functionality ==
+
+Low level threading support is implemented in Eqela using the "com.eqela.libos.Thread" and the "com.eqela.libos.Runnable" types. Using these mechanisms, starting new threads is very simple, as per the following example:
+
+--- code ---
+// Declare a "thread class" that implements the Runnable interface
+class MyRunnable : Runnable
+{
+    property int index;
+
+    public void run() {
+        int n;
+        for(n=0; n<100; n++) {
+            Log.message("This is printed from another thread : %d : %d".printf().add(index).add(n));
+        }
+    }
+}
+
+// Execute the MyRunnable thread class from another class
+// The thread executes in three parallel runs
+class MyExecutor
+{
+    public static void execute_thread() {
+        Thread.start(new MyRunnable().set_index(1));
+        Thread.start(new MyRunnable().set_index(2));
+        Thread.start(new MyRunnable().set_index(3));
+    }
+}
+--- code ---
+
+For the synchronization / locking of threads (preventing simultaneous data access from multiple threads), the "com.eqela.libos.Mutex" type is used, calling the lock() and unlock() methods to control access, as per the following example:
+
+--- code ---
+// A sample of a multithreaded class that involves a shared member variable.
+// The access to the shared variable "queue" is controlled through the mutex
+// so that only one thread will be accessing the variable at any given time.
+
+class SynchronizedThreadExample : Runnable
+{
+    Mutex mutex;
+    Queue queue;
+
+    public void run() {
+        while(true) {
+            // make sure the mutex exists before using it.
+            if(mutex != null) {
+                mutex.lock();
+            }
+            // Between lock() and unlock(), we can expect
+            // that the other thread will not be accessing the
+            // variable.
+            queue.add(new SomeObject());
+            if(mutex != null) {
+                mutex.unlock();
+            }
+        }
+    }
+
+    public void start() {
+        // Create the shared variable
+        queue = Queue.create();
+
+        // Create the mutex object. Note that it is possible
+        // for this to return null if the platform has no Mutex
+        // implementation in place, and the program should not
+        // crash as a result (check for mutex for nullness).
+        mutex = Mutex.create();
+
+        // Start the thread (will execute the run() method in a
+        // new thread)
+        Thread.start(this);
+        while(true) {
+            if(mutex != null) {
+                mutex.lock();
+            }
+            var o = queue.pop() as SomeObject;
+            if(mutex != null) {
+                mutex.unlock();
+            }
+            // Do something with the object "o".
+            // NOTE: Only the retrieval of the object from the
+            // shared queue needs to be protected by the mutex.
+            // The actual processing does not need to be.
+        }
+    }
+}
+--- code ---
+
+== Higher level API ==
+
+Threading is often considered difficult and error-prone to implement, and many times higher level approaches are suggested for application developers. Eqela also provides an easier-to-use, higher level API for concurrent execution through the use of tasks and a background task manager (com.eqela.libbackgroundtask.BackgroundTaskManager). Please refer to the appropriate documentation below for the use of the higher level API.
+
+@reference background-tasks

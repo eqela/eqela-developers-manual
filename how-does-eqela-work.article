@@ -1,0 +1,38 @@
+= How does Eqela work? =
+
+== The general idea ==
+
+Eqela is fundamentally a programming language translator, sometimes referred to as an "application converter":
+It translates the Eqela source code to other programming languages.
+
+== A sample program ==
+
+As a sample, consider the following program written using the Eqela programming language:
+
+--- code ---
+class Main : LayerWidget
+{
+    public void initialize() {
+        base.initialize();
+        add(LabelWidget.instance().set_text("Hello world"));
+    }
+}
+--- code ---
+
+When compiled to Java (eg. for Android), the Eqela compiler would translate the program to something like the following (note that the Eqela classes LayerWidget and LabelWidget are in fact real Java classes as well, and Eqela strings are fundamentally dealt with as Java strings as well):
+
+--- code ---
+package com.mycompany;
+public class Main extends eq.gui.LayerWidget
+{
+    @Override
+    public void initialize() {
+        super.initialize();
+        (eq.gui.ContainerWidget)this).add(((eq.gui.Widget)eq.widget.LabelWidget.eq_widget_LabelWidget_instance().set_text(eq.api.StringStatic.eq_api_StringStatic_for_strptr("Hello world"))));
+    }
+
+    public Main() {
+    }
+}
+--- code ---
+

@@ -1,0 +1,26 @@
+= Using arrays =
+
+The Array class provides an indexed collection type that allows fast lookups based on integer indexes.
+
+--- code ---
+// construct an array with four string elements
+var array = Array.create();
+array.append("This ");
+array.append("is ");
+array.append("a ");
+array.append("test ");
+
+// print the number of elements on the console
+Log.message(array.count());
+
+// iterate through and print each element in turn
+int n;
+for(n=0; n<array.count(); n++) {
+     Log.message(array.get(n));
+}
+
+// replace a value: `is' -> `is NOT'
+array.set(1, "is NOT ");
+--- code ---
+
+An array is a specialized subtype of the generic Collection type. Most of the operations to be performed on an array (such as count, remove, iterate, append, get, set, etc.) are shared by other types derived from eq.api.Collection (notably LinkedList). The operations perform differently, however, depending on the specific type: Index based lookups are fast on arrays, whereas inserts and removals are slower, as compared to linked lists.

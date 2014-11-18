@@ -1,0 +1,24 @@
+= Using iterators =
+
+The framework provides a generic way to iterate over collections of data. This functionality is used in many places throughout the framework, one of which is the "eq.api.Collection" interface (eg. Arrays and linked lists). However, many other things can also be iterated over. In fact, the framework also provides an "eq.api.Iterateable" interface that defines a single method "iterate()" that can be used to obtain an instance of "eq.api.Iterator". The Iterator class, then, also has a single method: "next()", which returns an "eq.api.Object". A simple example of using these classes below creates a linked list, adds two entries, and iterates over them:
+
+--- code ---
+// Construct a linked list with two entries
+var ll = LinkedList.create();
+ll.append("first");
+ll.append("second");
+
+// Iterate using an iterator
+var it = ll.iterate();
+if(it != null) {
+    Object o;
+    while((o = it.next()) != null) {
+        Log.message(o);
+    }
+}
+
+// Iterate using foreach (automatically obtains the iterator; same output as above)
+foreach(Object o in ll) {
+    Log.message(o);
+}
+--- code ---

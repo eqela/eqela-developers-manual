@@ -1,0 +1,44 @@
+= Client side networking using raw TCP sockets =
+
+Using raw TCP sockets allows developers to implement custom connection-oriented protocols to communiate with devices over the Internet. The basic usage of the Eqela TCP socket API is illustrated below:
+
+--- code ---
+// A sample program demonstrating the use of TCP sockets in Eqela.
+// The program connects to an HTTP server on the Internet, sends a simple
+// request and reads and outputs a response.
+
+class TCPSocketSample
+{
+    public static void communicate(String address, int port) {
+        // Create and open a connection to the given server IP address and port.
+        // The create() call will only return once the connection has either been
+        // established or deemeed failed (the call is a blocking call(.
+        var socket = TCPSocket.create(address, port);
+        if(socket == null) {
+            Log.error("Failed to connect");
+            return;
+        }
+        Log.message("Connected to: `%s:%d".printf().add(address).add(port));
+
+        // Create an OutputStream object and use it to send the request
+        var os = OutputStream.create(socket);
+        if(os != null) {
+            os.println("GET /");
+        }
+
+        // Create an InputStream object and use it to read the server response
+        var ins = InputStream.create(socket);
+        if(ins != null) {
+            String line;
+            while((line = ins.readline()) != null) {
+                Log.message("Received from server: `%s'".printf().add(line));
+            }
+        }
+    }
+
+    public static void execute() {
+        // Execute the socket communication using a specific IP address / port
+        communicate("122.2.153.246", 80);
+    }
+}
+--- code ---

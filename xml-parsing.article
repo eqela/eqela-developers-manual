@@ -1,0 +1,56 @@
+= XML parsing =
+
+XML parsing in the Eqela framework is provided through the com.eqela.libxml.XMLParser class, which is intended to be subclassed in order to perform parsing. The following example demonstrates how this can be done:
+
+--- code ---
+// The sample program below implements a simple XML parser that collects
+// the names of all the XML tags present in the document and stores them in
+// a collection. While collecting the element names, the parser also prints on
+// the console all XML document components that it encounters.
+
+class MyXMLParser : XMLParser
+{
+    property Collection elements;
+
+    public MyXMLParser() {
+        elements = LinkedList.create();
+    }
+
+    // Whenever the parser encounters an opening tag, this method is called
+    public void on_start_element(String element, HashTable parameters) {
+        Log.message("Start element: ".append(element));
+        elements.append(element);
+    }
+
+    // Whenever the parser encounters a closing tag, this method is called
+    public void on_end_element(String element) {
+        Log.message("End element: ".append(element));
+    }
+
+    // Whenever the parser encounters character data (text outside of tags),
+    // this method is called
+    public void on_cdata(String cdata) {
+        Log.message("Character data from XML file: `%s'".printf().add(cdata));
+    }
+
+    // Whenever the parser encounters XML comments inside <!-- and --> characters,
+    // this method is called. This method is usually not implemented and can safely
+    // (and usually) be ignored.
+    public void on_comment(String comment) {
+        Log.message("XML comment: `%s'".printf().add(comment));
+    }
+}
+
+class MainProgram
+{
+    // The sample main program here parses a static string. The data could
+    // also be read from a file, and then passed to the XML parser
+    public static void execute() {
+        var parser = new MyXMLParser();
+        parser.parse_string("<xml><testing>value</testing></xml>");
+        foreach(String element in parser.get_element()) {
+            Log.message("ELEMENT: ".append(element));
+        }
+    }
+}
+--- code ---

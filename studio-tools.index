@@ -1,0 +1,14 @@
+title: Configuration of external tools for Eqela Studio
+description: In targeting the different platforms, Eqela often utilizes the native development tools of each platform to perform certain steps during the compilation process. For this to be possible, those tools will also need to be installed on the development system. These articles will direct you in the installation. NOTE: You do not have to go through these manually in advance. Eqela Studio will direct you in the installation as necessary. The information is provided here for reference purposes.	
+reference: studio-tools-intro
+reference: studio-tools-jdk
+reference: studio-tools-adtbundle
+reference: studio-tools-apacheant
+reference: studio-tools-xcode
+reference: studio-tools-fruitstrap
+reference: studio-tools-mingw
+reference: studio-tools-wp8
+reference: studio-tools-linux-gcc
+reference: studio-tools-j2me
+reference: studio-tools-proguard
+reference: studio-tools-bbjde

@@ -1,0 +1,18 @@
+= Installing Fruitstrap (for iOS device installation) =
+
+Fruitstrap is a small open source tool that can be used to install compiled iOS applications on an iOS
+device. Eqela can also use the Fruitstrap tool to complete the installation procedure when compiling to an iOS
+device that is connected to the computer. To download Fruitstrap, look for the "Fruitstrap executable for Mac OS X"
+download on the following page:
+
+@link /download "Download Fruitstrap on the Eqela downloads page"
+
+Once downloaded, you would end up with the ZIP file somewhere on your hard drive. Then go back to
+your Eqela Studio, choose the rightmost "tools" menu from the orange toolbar, followed by the entry
+for "configuring" the tools. Then choose "Fruitstrap" and "Install this tool from a file". In the
+file selector dialog, then select the ZIP file that you have just downloaded. The tool should then
+be correctly installed.
+
+If you wish to learn more about Fruitstrap, see the author's Github page:
+
+@link https://github.com/ghughes/fruitstrap "Github page for Fruitstrap"

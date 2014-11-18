@@ -1,0 +1,119 @@
+= Variables and data types =
+
+== Primitive types and object types ==
+
+In Eqela, there are two families of data types: primitive types and object types. The primitive types are built in to the language as basic building blocks, and cannot be extended by the programmer; the object types, on the other hand, are implemented and extended completely by the application programmer. In method calls, all primitive types are passed by value, whereas object types are always passed by reference.
+
+== Primitive data types ==
+
+The built-in primitive types available are briefly introduced below:
+
+--- code ---
+/* int: An integer value. (the exact bit size is platform dependent) */
+int n = 100;
+
+/* long: An integer value with a big storage space (at least not smaller than "int"; the exact bit size is platform dependent) */
+long n = 10000000;
+
+/* byte: An 8 bit integer (regardless of platform) */
+byte b = 127;
+
+/* bool: A boolean variable with a true / false value */
+bool yesvariable = true;
+bool novariable = false;
+
+/* double: A double-precision floating point number */
+double floating_point_variable = 100.56;
+
+/* ptr: A generic memory pointer */
+ptr mypointer;
+embed "c" {{{
+    // inside C code, ptr variables are void* pointers
+    int myvariable;
+    mypointer = (void*)&myvariable;
+}}}
+embed "java" {{{
+    // inside Java code, ptr variables are byte array references
+    mypointer = new byte[128];
+}}}
+
+/* strptr: A reference to the implementation of a string in the underlying native platform */
+strptr mystr;
+embed "java" {{{
+    // inside Java code, the strptr is an instance of java.lang.String
+    mystr = "Java String";
+}}}
+embed "c" {{{
+    // inside C code, the strptr is a char* pointer
+    mystr = "C string";
+}}}
+
+/* void: refers to no data type at all (cannot be used to declare variables) */
+void method_that_does_not_return_any_value() {
+    // this function / method does not return anything: Thus, "void"
+}
+--- code ---
+
+== Type inference ==
+
+Eqela supports what is often referred to as "type inference" through the use of the special "var" data type: The data type of a "var" variable is automatically substituted with the actual data type depending on the value assigned to the variable. Thus, the following two are equivalent:
+
+--- code ---
+int myinteger = 10;
+var myinteger = 10;
+--- code ---
+
+== Object data types ==
+
+Object types are effectively classes that can be instantiated as objects. For example, the following declares a new object type through a class named "MyClass":
+
+--- code ---
+// Declares a class named "MyClass"
+class MyClass
+{
+    public int method() {
+        return(10);
+    }
+}
+
+// Declares a variable named "o" (that has a data type "MyClass")
+// and assigns the value of "o" to a new instance of "MyClass".
+// Note how type inference is used to determine the variable type automatically.
+var o = new MyClass();
+--- code ---
+
+== Strings ==
+
+Strings are somewhat special among the Eqela data types. While the "strptr" data type represents a "primitive" string, the API also offers a "String" class that offers a string implementation as an object (object type). Usually, string literals in the application source code are automatically assigned as instances of the "String" object, not as "strptr" variables. Thus the following code holds true:
+
+--- code ---
+String literal = "This is a string literal";
+var str = "Another string literal";
+if(str is String) {
+    ; // This is true
+}
+--- code ---
+
+In other respects, string objects are not at all special. Common string operations are done using regular method calls as follows:
+
+--- code ---
+var str1 = "String 1";
+var str2 = str1.append(" + More stuff");
+Log.message(str2); // prints out "String 1 + More stuff"
+if(str1.equals(str2)) {
+    ; // not true
+}
+if("String 1".equals(str1)) {
+    ; // true
+}
+--- code ---
+
+Note that in the Eqela API, string objects are immutable; thus, a call to .append(), for example, results in the creation of a new string object. For efficiently constructing strings, a StringBuffer class is also provided as part of the API:
+
+--- code ---
+var sb = StringBuffer.create().
+sb.append("First");
+sb.append_c(' ');
+sb.append("Second");
+Log.message(sb.to_string()); // prints "First Second"
+--- code ---

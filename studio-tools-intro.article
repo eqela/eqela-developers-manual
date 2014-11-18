@@ -1,0 +1,18 @@
+= Introduction to how Eqela Studio handles external tools =
+
+For each target platform, Eqela Studio utilizes the appropriate additional tools (often represented
+by the standard SDK for the given platform) in order to complete the build. The tools are seamlessly
+integrated in the Eqela Studio build process, and aside from the initial installation, their usage and
+presence is completely transparent to the user.
+
+By default, Eqela Studio will search for the appropriate tools in known locations, and if the tools
+are found and installed, then no further actions are required from the user. However, the user will
+always have an option to reconfigure any tool to use a specific version, or to use a version installed
+in a specific location, or in many cases, to install the tool through Eqela Studio. The tool management
+is done through the project editor window; the rightmost item in the orange toolbar shows an entry
+titled "XXX tools" (where "XXX" represents the currently selected target platform). By selecting the
+"configure" option under this menu, one can see the current setup and make the necessary modifications.
+
+When choosing to install a custom version of a tool automatically through Eqela Studio, the tools will
+be installed in a standard location: This is found under the current workspace directory, under the
+"packages" subdirectory.

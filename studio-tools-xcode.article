@@ -1,0 +1,14 @@
+= Installing Xcode (for iOS / OS X development) =
+
+Xcode is the development tool bundle for the development of applications for either Mac OS X
+or the iOS platform. It contains various tools and compilers that assist in compiling apps. The
+easiest way to install Xcode is through the "App Store" application on a Mac OS X computer. For
+further information and alternative downloads, you can also refer to the Apple website for Xcode:
+
+@link https://developer.apple.com/xcode/downloads/ "Xcode downloads"
+
+NOTE: Xcode can only be installed on a Mac OS X operating system. The installation of Mac OS X
+or iOS compilers, development tools (or Xcode) on any other platform is not supported.
+
+Once downloaded and installed, Eqela Studio will automatically detect Xcode installed in the
+standard location, and will use it appropriately. No further configuration is necessary.

@@ -1,0 +1,52 @@
+= Activating a license in Eqela Studio =
+
+The Eqela tools can be used in various different ways, and with different licensing options.
+This article describes briefly how to activate and manage licenses that you may have purchased.
+
+If you have been issued an Eqela license, that means you will be able to compile your Eqela programs
+to all the supported target platforms that are included in the license. In order to do so, the license
+must first be associated with your user account, and subsequently activated on a particular device /
+computer. The following checklist represents the steps required to make this happen:
+
+== 1. Adopt the license ==
+
+Licenses are usually delivered in the form of a license certificate, the important part of which is the
+"license ID". The license ID identifies the particular license issued to you. Once the license has been
+provisioned in the system, it must be associated with a user account in order for it to be available for
+activation. To associate the license with your user account (sometimes referred to as "adopting" a license),
+either choose "Activate license.." in the welcome screen of Eqela Studio, or choose "Activate / deactivate
+licenses .." in the user menu at the top right corner of the Eqela Studio window. In the popup window that
+opens, choose "Add new license", and type your license ID in completeness in the text box that appears. If
+your license ID was correctly spelled, it should now appear in the "Choose license" list of the "Activate
+license" dialog.
+
+== 2. Activate the license ==
+
+Once your license has been associated with your account, it will appear in the "Choose license" list of the
+"Activate license" dialog. In order to activate the license on the current computer / device, simply choose
+the license from the list (it is possible for a single account to own multiple licenses), and select "OK"
+from the bottom of the dialog. Eqela Studio will then contact the licensing server for activation and will
+ultimately provision the current system to be used with the license. You should observe the text at the bottom
+of the welcome screen change to say "Running in licensed mode".
+
+Note that it is possible for one user to use his/her license on several computers, but only on one system at a
+time. This means that if you reactivate a license that has already been activated on some other device, then
+the previously activated license will be invalidated. One license can only be used on one computer / device
+at any given time.
+
+== 3. Use the license / compiler ==
+
+Once the license is active and the relevant software components are installed, you are good to go. Create a project and
+develop your app. The drop down menu in the project editor will now give you a full list of options for your target platforms.
+
+(NOTE: Prior to being able to compile applications on certain platforms, appropriate compilers / other externally supplied
+tools will still need to be installed, depending on the targeted platforms. Eqela Studio will prompt you for the
+tools that need installation as you attempt to "Execute" a build from the project editor and some tools are missing.
+From there, simply follow the instructions for the installation.)
+
+== 4. Deactivate the license ==
+
+Once you are done using a particular computer / device, you should deactivate your license. Simply choose "Activate /
+deactivate license .." from the user menu at the top right corner of the Eqela Studio window; if you have an active
+license, your will simply be asked to confirm if you truly wish to deactivate. Once you choose "Yes", the tool will
+contact the licensing server again, and your license will be made available for you to use elsewhere.

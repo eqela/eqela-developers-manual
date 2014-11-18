@@ -1,0 +1,60 @@
+= String operations =
+
+== String objects ==
+
+While strings are indeed primitive types in Eqela (the strptr data type), their implementation in the Eqela API is done separately from the Primitive class; instead, strings are implemented by the interface "eq.api.String". While the interface enables a number of methods to construct objects implementing the interface, the easiest way by far is by simply declaring a string literal, as follows:
+
+--- code ---
+var strobject = "This is a string";
+--- code ---
+
+The resulting "strobject" object would now be of type "eq.api.String". In fact, string literals themselves can be considered to be valid instances of the String class, and therefore you can directly call string methods on them, and the following is legal:
+
+--- code ---
+var substring = "This is a string".substring(5, 2); // "is"
+--- code ---
+
+== Constructing strings ==
+
+String objects are immutable, therefore modifying a string creates a new object, and will not change the original. Consider the following code:
+
+--- code ---
+var strobject = "This is a string";
+var secondobject = strobject.append(" and this one");
+--- code ---
+
+The value of "strobject" continues to be "This is a string", while the value of "secondobject" will now be "This is a string and this one".
+
+Given this nature of strings, it is not efficient to construct strings from smaller components through the use of append(), as on each call, the entire string is reallocated. Rather, when constructing strings, one can use the StringBuffer object as follows:
+
+--- code ---
+var sb = StringBuffer.create();
+sb.append("This ");
+sb.append("is ");
+sb.append_c('a');
+sb.append_c(' ');
+sb.append("a string");
+var as_string = sb.to_string();
+--- code ---
+
+The StringBuffer handles memory allocation and appending efficiently, and thus the above code represents a faster way to construct a string from components.
+
+== Formatting strings ==
+
+Another way to construct strings is through the use of formatting. This can be done through the "eq.api.StringFormatter" interface and the builtin printf() method of String objects. This interprets the string as a kind of a template, and allows parts of it to be substituted with other strings, integers, etc. The syntax of this formatting is familiar to C programmers as being the same as that of the classic C printf() function. Thus, consider the following code:
+
+--- code ---
+var mystring = "This is %s. Very nice".printf().add("Hello").to_string();
+--- code ---
+
+The above code would result to a string object "mystring" with the value of "This is Hello. Very nice".
+
+Note that the add() method of StringFormatter, as shown above, expects an instance of "eq.api.Object". Thus, to pass primitive types, one would use the Primitive class as was discussed earlier. To format in integers and doubles, it would therefore be done this way:
+
+--- code ---
+var anotherstring = "Integer %d and double %f".printf()
+    .add(Primitive.for_integer(100))
+    .add(Primitive.for_double(15.64)).to_string();
+--- code ---
+
+This would result in the value of "anotherstring" to become "Integer 100 and double 15.64".

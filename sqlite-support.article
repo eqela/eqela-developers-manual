@@ -1,0 +1,23 @@
+= Integrated SQLite databases =
+
+Since the SQLite database engine is available on most platforms supported by Eqela, the engine has been integrated as a standard part of the Eqela framework. However, on platforms where the SQLite engine is not available, the Eqela SQLite API will not be able to perform its work. Where the engine works, however, it can very easily be used in accordance to the following example:
+
+--- code ---
+public class SQLiteSample
+{
+    public SQLDatabase open_sqlite_database(File file) {
+        if(file == null) {
+            return(null);
+        }
+        SQLDatabase v = SQLiteDatabase.for_file(file, true);
+        if(v == null) {
+            return(v);
+        }
+        if(v.table_exists("maintable") == false) {
+            // The table does not exist; we may want to create it.
+            // This would happen if the database file did not previously exist.
+        }
+        return(v);
+    }
+}
+--- code ---
